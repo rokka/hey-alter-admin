@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ComputerController;
+use App\Http\Controllers\SchoolController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,10 +25,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/computer', function () {
-    return view('computer');
-})->name('computer');
+Route::get('/schools', [SchoolController::class, 'index'])->name('schools');
+Route::get('/schools/{id}', [SchoolController::class, 'edit'])->name('schools_edit');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/schools', function () {
-    return view('schools');
-})->name('schools');
+Route::get('/computer', [ComputerController::class, 'index'])->name('computer');
