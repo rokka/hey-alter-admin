@@ -1,12 +1,21 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Schools') }}
+            {{ __('Computer') }}
+
+            @if (session('message'))
+    <div class="alert alert-success">
+        {{ session('message') }}
+    </div>
+@endif
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="block mb-8">
+                    <a href="{{ route('computers.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Computer hinzufügen</a>
+                </div>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
               <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -61,10 +70,10 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ $computer->comment }}</div>
+                                <div class="text-sm text-gray-900">{!! nl2br(e($computer->comment)) !!}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="{{ route('schools_edit', $computer->id) }}" class="text-indigo-600 hover:text-indigo-900">Bearbeiten</a>
+                                <a href="{{ route('computers.edit', $computer->id) }}" class="text-indigo-600 hover:text-indigo-900">Bearbeiten</a>
                             </td>
                             </tr>
                             @endforeach

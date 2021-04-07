@@ -23,7 +23,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/schools', [SchoolController::class, 'index'])->name('schools');
-Route::get('/schools/{id}', [SchoolController::class, 'edit'])->name('schools_edit');
-
-Route::get('/computer', [ComputerController::class, 'index'])->name('computer');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('/computers', ComputerController::class);
+    Route::resource('/schools', SchoolController::class);
+});

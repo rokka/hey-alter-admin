@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreComputerRequest;
+//use App\Http\Requests\UpdateUserRequest;
 use App\Models\Computer;
 use Illuminate\Http\Request;
 
@@ -32,14 +34,14 @@ class ComputerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  StoreComputerRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreComputerRequest $request)
     {
-        Computer::create($request->all());
+        $computer = Computer::create($request->validated());
 
-        return back()->with('message', 'item stored successfully');
+        return redirect()->route('computers.index')->with('message', $computer->identifier . ' stored successfully');
     }
 
     /**
