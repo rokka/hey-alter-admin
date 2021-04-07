@@ -25,7 +25,7 @@
                         <thead class="bg-gray-50">
                             <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Modell
+                                Gerät
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Spender
@@ -35,6 +35,10 @@
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Kommentar
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
                             </th>
                             <th scope="col" class="relative px-6 py-3">
                                 <span class="sr-only">Edit</span>
@@ -69,8 +73,18 @@
                                 {{ $computer->state }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-4 whitespace-nowrap">                            
                                 <div class="text-sm text-gray-900">{!! nl2br(e($computer->comment)) !!}</div>
+                            </td>
+                            <td>
+                                @if ($computer->is_deletion_required)
+                                <img src="https://img.icons8.com/ios/452/shredder.png" width="30" height="30" title="Professionelle Löschung gewünscht">
+                                @endif
+                            </td>
+                            <td>
+                                @if ($computer->needs_donation_receipt)
+                                <img src="https://image.flaticon.com/icons/png/512/1950/1950312.png" width="30" height="30" title="Spendenquittung gewünscht">
+                                @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{ route('computers.edit', $computer->id) }}" class="text-indigo-600 hover:text-indigo-900">Bearbeiten</a>

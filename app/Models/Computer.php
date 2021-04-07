@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\Team;
 
 class Computer extends Model
 {
@@ -13,6 +16,7 @@ class Computer extends Model
     protected $fillable = [
         'donor',
         'email',
+        'number',
         'identifier',
         'model',
         'comment',
@@ -20,34 +24,46 @@ class Computer extends Model
         'needs_donation_receipt',
     ];
 
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+
+    public function getIdentifierAttribute()
+    {
+        return $this->team->name . "-" . str_pad($this->number, 4, '0', STR_PAD_LEFT);
+    }
+
     protected static function booted()
     {
-        static::creating(function ($user) {
+        static::creating(function ($computer) {
 
-            $last_identifier = DB::table('computers')->max('identifier');
+            $user = Auth::user();
 
-            $last_id = intval(preg_replace('/[^0-9]/', '', $last_identifier)) + 1;
+            $last_number = DB::table('computers')->where('team_id', $user->currentTeam->id)->max('number');
+            $last_number = intval($last_number);
 
-            $user->identifier = "HA-E-" . str_pad($last_id, 4, '0', STR_PAD_LEFT);
+            $computer->team_id = $user->currentTeam->id;
+            $computer->number = $last_number + 1;
 
-            if(is_null($user->model))
+            if(is_null($computer->model))
             {
-                $user->model = '';
+                $computer->model = '';
             }
 
-            if(is_null($user->comment))
+            if(is_null($computer->comment))
             {
-                $user->comment = '';
+                $computer->comment = '';
             }
 
-            if(is_null($user->is_deletion_required))
+            if(is_null($computer->is_deletion_required))
             {
-                $user->is_deletion_required = 0;
+                $computer->is_deletion_required = 0;
             }
 
-            if(is_null($user->needs_donation_receipt))
+            if(is_null($computer->needs_donation_receipt))
             {
-                $user->needs_donation_receipt = 0;
+                $computer->needs_donation_receipt = 0;
             }
         });
     }

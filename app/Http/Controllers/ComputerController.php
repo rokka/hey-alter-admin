@@ -6,6 +6,8 @@ use App\Http\Requests\StoreComputerRequest;
 //use App\Http\Requests\UpdateUserRequest;
 use App\Models\Computer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ComputerController extends Controller
 {
@@ -16,7 +18,9 @@ class ComputerController extends Controller
      */
     public function index()
     {
-        $computers = Computer::all();
+        $user = Auth::user();
+
+        $computers = Computer::with('team')->where('team_id', $user->currentTeam->id)->get();
 
         return view('computers.index', compact('computers'));
     }
