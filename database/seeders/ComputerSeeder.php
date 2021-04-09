@@ -15,7 +15,8 @@ class ComputerSeeder extends Seeder
     public function run()
     {
         DB::table('computers')->insert([
-            'identifier' => 'HA-E-0001',
+            'team_id' => '1',
+            'number' => '1',
             'donor' => 'Max Mustermann',
             'email' => 'nettermensch@web.de',
             'model' => 'iMac',
@@ -24,14 +25,16 @@ class ComputerSeeder extends Seeder
         ]);
 
         DB::table('computers')->insert([
-            'identifier' => 'HA-E-0002',
+            'team_id' => '1',
+            'number' => '2',
             'model' => 'Lenovo XC 730',
             'state' => 'refurbished',
             'comment' => ''
         ]);
 
         DB::table('computers')->insert([
-            'identifier' => 'HA-E-0003',
+            'team_id' => '1',
+            'number' => '3',
             'donor' => 'Eva Neumann',
             'email' => 'nettermensch@web.de',
             'model' => 'IBM Thinkpad',
