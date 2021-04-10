@@ -28,6 +28,9 @@
                                 Gerät
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Benötigtes Zubehör
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Spender
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -65,6 +68,11 @@
                                 <!--</div>-->
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">
+                                {{ $computer->required_equipment }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ $computer->donor ?? 'Unbekannt' }}</div>
                                 <div class="text-sm text-gray-500">{{ $computer->email ?? '' }}</div>
                             </td>
@@ -75,6 +83,11 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">                            
                                 <div class="text-sm text-gray-900">{!! nl2br(e($computer->comment)) !!}</div>
+                            </td>
+                            <td>
+                                @if ($computer->has_webcam)
+                                <img src="https://static.thenounproject.com/png/3624-200.png" width="30" height="30" title="Web-Cam integriert">
+                                @endif
                             </td>
                             <td>
                                 @if ($computer->is_deletion_required)
