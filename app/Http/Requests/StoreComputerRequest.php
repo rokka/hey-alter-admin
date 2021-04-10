@@ -15,6 +15,8 @@ class StoreComputerRequest extends FormRequest
             'comment' => [ 'nullable' ],
             'is_deletion_required' => [ 'nullable', 'boolean' ],
             'needs_donation_receipt' => [ 'nullable', 'boolean' ],
+            'has_webcam' => [ 'nullable', 'boolean' ],
+            'required_equipment' => ['nullable', 'string' ],
         ];
     }
 

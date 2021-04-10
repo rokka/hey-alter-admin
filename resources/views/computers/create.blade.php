@@ -57,6 +57,24 @@
                         </div>
 
                         <div class="px-4 py-5 bg-white sm:p-6">
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="has_webcam" id="has_webcam" class="form-checkbox rounded-md" value="1" />
+                                <span class="ml-2">Web-Cam integriert</span>
+                            </label>                            
+                            @error('has_webcam')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="px-4 py-5 bg-white sm:p-6">
+                            <label for="required_equipment" class="block font-medium text-sm text-gray-700">Benötigtes Zubehör (komma-getrennt)</label>
+                            <input type="text" name="required_equipment" id="required_equipment" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('model', '') }}" />
+                            @error('required_equipment')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="px-4 py-5 bg-white sm:p-6">
                             <label for="comment" class="block font-medium text-sm text-gray-700">Kommentar</label>
                             <textarea type="text" name="comment" id="comment" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('comment', '') }}"></textarea>
                             @error('comment')

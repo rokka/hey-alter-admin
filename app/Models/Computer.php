@@ -22,6 +22,9 @@ class Computer extends Model
         'comment',
         'is_deletion_required',
         'needs_donation_receipt',
+        'has_webcam',
+        'required_equipment',
+        'needs_donation_receipt',
     ];
 
     public function team()
@@ -64,6 +67,16 @@ class Computer extends Model
             if(is_null($computer->needs_donation_receipt))
             {
                 $computer->needs_donation_receipt = 0;
+            }
+
+            if(is_null($computer->has_webcam))
+            {
+                $computer->has_webcam = 0;
+            }
+
+            if(is_null($computer->required_equipment))
+            {
+                $computer->required_equipment = '';
             }
         });
     }
