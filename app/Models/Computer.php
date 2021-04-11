@@ -25,6 +25,7 @@ class Computer extends Model
         'has_webcam',
         'required_equipment',
         'needs_donation_receipt',
+        'state',
     ];
 
     public function team()
@@ -39,15 +40,18 @@ class Computer extends Model
 
     protected static function booted()
     {
-        static::creating(function ($computer) {
+        static::saving(function ($computer) {
 
-            $user = Auth::user();
+            if(!$computer->exists)
+            {
+                $user = Auth::user();
 
-            $last_number = DB::table('computers')->where('team_id', $user->currentTeam->id)->max('number');
-            $last_number = intval($last_number);
+                $last_number = DB::table('computers')->where('team_id', $user->currentTeam->id)->max('number');
+                $last_number = intval($last_number);
 
-            $computer->team_id = $user->currentTeam->id;
-            $computer->number = $last_number + 1;
+                $computer->team_id = $user->currentTeam->id;
+                $computer->number = $last_number + 1;
+            }
 
             if(is_null($computer->model))
             {
@@ -57,21 +61,6 @@ class Computer extends Model
             if(is_null($computer->comment))
             {
                 $computer->comment = '';
-            }
-
-            if(is_null($computer->is_deletion_required))
-            {
-                $computer->is_deletion_required = 0;
-            }
-
-            if(is_null($computer->needs_donation_receipt))
-            {
-                $computer->needs_donation_receipt = 0;
-            }
-
-            if(is_null($computer->has_webcam))
-            {
-                $computer->has_webcam = 0;
             }
 
             if(is_null($computer->required_equipment))

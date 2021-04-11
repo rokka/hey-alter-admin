@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreComputerRequest extends FormRequest
+class UpdateComputerRequest extends FormRequest
 {
     public function rules()
     {
@@ -12,6 +12,7 @@ class StoreComputerRequest extends FormRequest
             'donor' => ['nullable', 'string' ],
             'email' => ['nullable', 'email' ],
             'model' => ['nullable', 'string' ],
+            'state' => ['required', 'string' ],
             'comment' => [ 'nullable' ],
             'is_deletion_required' => [ 'boolean' ],
             'needs_donation_receipt' => [ 'boolean' ],

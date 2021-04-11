@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreComputerRequest;
-//use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UpdateComputerRequest;
 use App\Models\Computer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,11 +77,15 @@ class ComputerController extends Controller
      * @param  \App\Models\Computer $computer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Computer $computer)
+    public function update(UpdateComputerRequest $request, Computer $computer)
     {
+        $computer->is_deletion_required = $request->has('is_deletion_required');
+        $computer->needs_donation_receipt = $request->has('needs_donation_receipt');
+        $computer->has_webcam = $request->has('has_webcam');
+                
         $computer->update($request->all());
-
-        return back()->with('message', 'item updated successfully');
+        
+        return view('computers.show', compact('computer'));
     }
 
     /**

@@ -1,21 +1,23 @@
 <x-app-layout>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Computer') }}
 
             @if (session('message'))
-    <div class="alert alert-success">
-        {{ session('message') }}
-    </div>
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
 @endif
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="block mb-8">
-                    <a href="{{ route('computers.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Computer hinzufügen</a>
-                </div>
+            <div class="block mb-8">
+                <a href="{{ route('computers.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Computer hinzufügen</a>
+            </div>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
               <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -50,7 +52,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($computers as $computer)
-                            <tr>
+                            <tr class="clickable-row hover:bg-gray-100" data-url="{{ route('computers.show', $computer->id) }}">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <!--<div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10">
@@ -78,7 +80,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                {{ $computer->state }}
+                                {{ __('xcomputer.state_' . $computer->state) }}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">                            
@@ -99,9 +101,6 @@
                                 <img src="https://image.flaticon.com/icons/png/512/1950/1950312.png" width="30" height="30" title="Spendenquittung gewünscht">
                                 @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="{{ route('computers.edit', $computer->id) }}" class="text-indigo-600 hover:text-indigo-900">Bearbeiten</a>
-                            </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -114,4 +113,12 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+    $(function() {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("url");
+        });
+    });
+</script>
 </x-app-layout>
