@@ -20,7 +20,7 @@ class ComputerController extends Controller
     {
         $user = Auth::user();
 
-        $computers = Computer::with('team')->where('team_id', $user->currentTeam->id)->get();
+        $computers = Computer::with('team')->where('team_id', $user->currentTeam->id)->orderBy('id','desc')->get();
 
         return view('computers.index', compact('computers'));
     }
