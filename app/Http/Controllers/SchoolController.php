@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSchoolRequest;
+use App\Http\Requests\UpdateSchoolRequest;
 use App\Models\School;
 use Illuminate\Http\Request;
 
@@ -32,18 +34,14 @@ class SchoolController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  StoreSchoolRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSchoolRequest $request)
     {
-        $validated = $this->validate($request, [
-            "name" => "required"
-        ]);
+        $school = School::create($request->validated());
 
-        School::create($validated);
-
-        return back()->with('message', 'item stored successfully');
+        return redirect()->route('schools.index')->with('message', $school->identifier . ' stored successfully');
     }
 
     /**
@@ -75,15 +73,11 @@ class SchoolController extends Controller
      * @param  \App\Models\School $school
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, School $school)
+    public function update(UpdateSchoolRequest $request, School $school)
     {
-        $validated = $this->validate($request, [
-            "name" => "required"
-        ]);
+        $school->update($request->all());
 
-        $school->update($validated);
-
-        return back()->with('message', 'item updated successfully');
+        return view('schools.show', compact('school'));
     }
 
     /**
@@ -92,10 +86,12 @@ class SchoolController extends Controller
      * @param  \App\Models\School $school
      * @return \Illuminate\Http\Response
      */
-    public function destroy(School $school)
+    public function destroy($id)
     {
+        $school = School::find($id);
+
         $school->delete();
 
-        return back()->with('message', 'item deleted successfully');
+        return back()->with('message', 'Der Eintrag wurde gelöscht.');
     }
 }

@@ -82,9 +82,9 @@ class ComputerController extends Controller
         $computer->is_deletion_required = $request->has('is_deletion_required');
         $computer->needs_donation_receipt = $request->has('needs_donation_receipt');
         $computer->has_webcam = $request->has('has_webcam');
-                
+
         $computer->update($request->all());
-        
+
         return view('computers.show', compact('computer'));
     }
 
@@ -94,10 +94,12 @@ class ComputerController extends Controller
      * @param  \App\Models\Computer $computer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Computer $computer)
+    public function destroy($id)
     {
+        $computer = Computer::find($id);
+
         $computer->delete();
 
-        return back()->with('message', 'item deleted successfully');
+        return back()->with('message', 'Der Eintrag wurde gelöscht.');
     }
 }
