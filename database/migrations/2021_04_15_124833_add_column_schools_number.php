@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSchoolsTable extends Migration
+class AddColumnSchoolsNumber extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateSchoolsTable extends Migration
      */
     public function up()
     {
-        Schema::create('schools', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('schools', function (Blueprint $table) {
+            $table->integer('number')->after('team_id');
         });
     }
 
@@ -27,6 +25,8 @@ class CreateSchoolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schools');
+        Schema::table('schools', function (Blueprint $table) {
+            $table->dropColumn('number');
+        });
     }
 }

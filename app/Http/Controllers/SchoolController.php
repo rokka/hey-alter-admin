@@ -6,6 +6,7 @@ use App\Http\Requests\StoreSchoolRequest;
 use App\Http\Requests\UpdateSchoolRequest;
 use App\Models\School;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SchoolController extends Controller
 {
@@ -16,7 +17,9 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        $schools = School::all();
+        $user = Auth::user();
+
+        $schools = School::with('team')->where('team_id', $user->currentTeam->id)->orderBy('id','desc')->get();
 
         return view('schools.index', compact('schools'));
     }

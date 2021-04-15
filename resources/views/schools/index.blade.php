@@ -59,10 +59,10 @@
                                 </div>-->
                                 <div class="ml-4">
                                     <div class="text-sm font-medium text-gray-900">
-                                    {{ $school->name }}
+                                        {{ $school->identifier }}
                                     </div>
                                     <div class="text-sm text-gray-500">
-                                    lehrer@web.de
+                                        {{ $school->name }}
                                     </div>
                                 <!--</div>-->
                                 </div>
@@ -86,6 +86,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900"></div>
                             </td>
+                            </tr>
                             @endforeach
                         </tbody>
                         </table>

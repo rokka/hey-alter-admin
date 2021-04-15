@@ -16,7 +16,7 @@
                             <label for="name" class="block font-medium text-sm text-gray-700">Name</label>
                             <input type="text" name="name" id="name" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full"
                                    value="{{ old('name', $school->name) }}" />
-                            @error('donor')
+                            @error('name')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
