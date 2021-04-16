@@ -95,6 +95,6 @@ class SchoolController extends Controller
 
         $school->delete();
 
-        return back()->with('message', 'Der Eintrag wurde gelöscht.');
+        return redirect()->route('schools.index')->with('message', 'Der Eintrag wurde gelöscht.');
     }
 }

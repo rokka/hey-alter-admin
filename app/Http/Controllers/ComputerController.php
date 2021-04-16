@@ -100,6 +100,6 @@ class ComputerController extends Controller
 
         $computer->delete();
 
-        return back()->with('message', 'Der Eintrag wurde gelöscht.');
+        return redirect()->route('computers.index')->with('message', 'Der Eintrag wurde gelöscht.');
     }
 }
