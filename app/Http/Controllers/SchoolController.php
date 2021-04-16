@@ -19,7 +19,7 @@ class SchoolController extends Controller
     {
         $user = Auth::user();
 
-        $schools = School::with('team')->where('team_id', $user->currentTeam->id)->orderBy('id','desc')->get();
+        $schools = School::with('team')->where('team_id', $user->currentTeam->id)->orderBy('name','asc')->get();
 
         return view('schools.index', compact('schools'));
     }

@@ -24,11 +24,6 @@ class School extends Model
         return $this->belongsTo(Team::class);
     }
 
-    public function getIdentifierAttribute()
-    {
-        return $this->team->name . "-" . str_pad($this->number, 4, '0', STR_PAD_LEFT);
-    }
-
     protected static function booted()
     {
         static::saving(function ($school) {
@@ -36,11 +31,7 @@ class School extends Model
             if (!$school->exists) {
                 $user = Auth::user();
 
-                $last_number = DB::table('schools')->where('team_id', $user->currentTeam->id)->max('number');
-                $last_number = intval($last_number);
-
                 $school->team_id = $user->currentTeam->id;
-                $school->number = $last_number + 1;
             }
             static::saving(function ($school) {
 

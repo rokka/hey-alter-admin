@@ -33,15 +33,6 @@
                                 Typ
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                PLZ
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Ort
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Straße
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Telefonnummer
                             </th>
                             <th scope="col" class="relative px-6 py-3">
@@ -59,25 +50,17 @@
                                 </div>-->
                                 <div class="ml-4">
                                     <div class="text-sm font-medium text-gray-900">
-                                        {{ $school->identifier }}
+                                        {{ \Illuminate\Support\Str::limit($school->name, 100, $end='...') }}
                                     </div>
                                     <div class="text-sm text-gray-500">
-                                        {{ $school->name }}
+                                        {{ $school->zip }} {{ $school->city }} {{ $school->street }}
                                     </div>
+                                </div>
                                 <!--</div>-->
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ $school->type }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ $school->zip }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ $school->city }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ $school->street }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ $school->phone }}</div>

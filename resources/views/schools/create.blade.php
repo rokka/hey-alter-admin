@@ -30,7 +30,7 @@
 
                         <div class="px-4 py-5 bg-white sm:p-6">
                             <label for="zip" class="block font-medium text-sm text-gray-700">PLZ</label>
-                            <input type="number" name="zip" id="zip" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('zip', '') }}" placeholder="Nicht angegeben" />
+                            <input type="text" name="zip" id="zip" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('zip', '') }}" placeholder="Nicht angegeben" />
                             @error('zip')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
