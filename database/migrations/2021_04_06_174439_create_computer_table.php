@@ -34,6 +34,6 @@ class CreateComputerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('computer');
+        Schema::dropIfExists('computers');
     }
 }

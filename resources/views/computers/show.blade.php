@@ -8,7 +8,12 @@
     <div>
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="block mb-8">
-                <a href="{{ route('computers.edit', $computer->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Computer bearbeiten</a>
+                <a href="{{ route('computers.edit', $computer->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-block">Computer bearbeiten</a>
+                <form action="{{ route('computers.destroy', $computer->id)}}" method="post" class="float-right inline-block">
+                    @csrf
+                    @method('DELETE')
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="submit" onclick="return confirm('Sind Sie sicher, dass sie den Eintrag für {{ $computer->model }} löschen wollen?')">Computer löschen</button>
+                </form>
             </div>
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -23,7 +28,7 @@
                                         {{ $computer->donor ?? 'Unbekannt' }}
                                     </td>
                                 </tr>
-                                
+
                                 @if ($computer->email)
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -34,7 +39,7 @@
                                     </td>
                                 </tr>
                                 @endif
-                                
+
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Professionelle Löschung gewünscht
@@ -47,7 +52,7 @@
                                     @endif
                                     </td>
                                 </tr>
-                                
+
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Spendenquittung gewünscht
@@ -60,7 +65,7 @@
                                     @endif
                                     </td>
                                 </tr>
-                                
+
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Modell
@@ -69,7 +74,7 @@
                                         {{ !empty($computer->model) ? $computer->model : 'Unbekannt' }}
                                     </td>
                                 </tr>
-                                
+
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Web-Cam integriert
@@ -82,7 +87,7 @@
                                     @endif
                                     </td>
                                 </tr>
-                                
+
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Benötigtes Zubehör
@@ -100,7 +105,7 @@
                                         {{ __('xcomputer.state_' . $computer->state) }}
                                     </td>
                                 </tr>
-                                
+
                                 @if ($computer->comment)
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">

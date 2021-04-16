@@ -1,12 +1,23 @@
 <x-app-layout>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Schools') }}
+
+            @if (session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="block mb-8">
+                <a href="{{ route('schools.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Schule hinzufügen</a>
+            </div>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
               <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -19,10 +30,10 @@
                                 Name
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Adresse
+                                Typ
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Status
+                                Telefonnummer
                             </th>
                             <th scope="col" class="relative px-6 py-3">
                                 <span class="sr-only">Edit</span>
@@ -31,7 +42,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($schools as $school)
-                            <tr>
+                            <tr class="clickable-row hover:bg-gray-100" data-url="{{ route('schools.show', $school->id) }}">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <!--<div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10">
@@ -39,25 +50,24 @@
                                 </div>-->
                                 <div class="ml-4">
                                     <div class="text-sm font-medium text-gray-900">
-                                    {{ $school->name }}
+                                        {{ \Illuminate\Support\Str::limit($school->name, 100, $end='...') }}
                                     </div>
                                     <div class="text-sm text-gray-500">
-                                    lehrer@web.de
+                                        {{ $school->zip }} {{ $school->city }} {{ $school->street }}
                                     </div>
+                                </div>
                                 <!--</div>-->
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">...</div>
-                                <div class="text-sm text-gray-500">...</div>
+                                <div class="text-sm text-gray-900">{{ $school->type }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                Active
-                                </span>
+                                <div class="text-sm text-gray-900">{{ $school->phone }}</div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900"></div>
                             </td>
                             </tr>
                             @endforeach
@@ -71,4 +81,12 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(function() {
+            $(".clickable-row").click(function() {
+                window.location = $(this).data("url");
+            });
+        });
+    </script>
 </x-app-layout>
