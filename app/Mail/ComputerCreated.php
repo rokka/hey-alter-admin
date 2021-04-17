@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\App;
 
 class ComputerCreated extends Mailable
 {
@@ -30,8 +31,10 @@ class ComputerCreated extends Mailable
      */
     public function build()
     {
+        $recipient = App::environment('local') ? 'rokka@gmx.net' : 'zulip+heyalter_essen.416b79cfe446f5026ea9cba17347e9f8.prefer-html@stratum0.org';
+
         return $this
-            ->to('zulip+test.99da96c384c7a148b5e62549da198e51.prefer-html@stratum0.org')
+            ->to($recipient)
             ->subject('Computerliste')
             ->view('emails.computers.created');
     }
