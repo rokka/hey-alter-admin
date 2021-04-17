@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Team;
+use App\Mail\ComputerCreated;
 
 class Computer extends Model
 {
@@ -68,5 +70,10 @@ class Computer extends Model
                 $computer->required_equipment = '';
             }
         });
+
+        static::created(function($computer) {
+	        Mail::send(new ComputerCreated($computer));
+	    });
+
     }
 }

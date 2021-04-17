@@ -19,6 +19,12 @@ use App\Http\Controllers\SchoolController;
 
 Route::redirect('/', '/login');
 
+Route::get(
+    '/HA-{location}-{number}', 
+    [ComputerController::class, 'display'])
+->where('location', '[A-Za-z]+')
+->where('number', '[0-9]+');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
