@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreComputerRequest;
 use App\Http\Requests\UpdateComputerRequest;
 use App\Models\Computer;
+use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -101,5 +102,22 @@ class ComputerController extends Controller
         $computer->delete();
 
         return back()->with('message', 'Der Eintrag wurde gelöscht.');
+    }
+
+    public function display($location, $number)
+    {
+        $computer = null;
+
+        $team = Team::where('name', 'HA-' . $location)->first();
+
+        if(!is_null($team))
+        {  
+            $computer = Computer::where('team_id', $team->id)->where('number', $number)->first();
+        }
+
+        return view('computers.display')
+            ->with('computer', $computer)
+            ->with('location', $location)
+            ->with('number', $number);
     }
 }
