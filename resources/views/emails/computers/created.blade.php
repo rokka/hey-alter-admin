@@ -1,1 +1,1 @@
-Es wurde ein neuer Computer hinzugefügt: {{ $this->computer->identifier }} (<a href="{{ URL::to($computer->identifier) }}">Details ansehen</a>)
+Es wurde ein neuer Computer hinzugefügt: {{ $computer->identifier }} (<a href="{{ URL::to($computer->identifier) }}">Details ansehen</a>)
