@@ -37,7 +37,7 @@ class Computer extends Model
 
     public function getIdentifierAttribute()
     {
-        return $this->team->name . "-" . str_pad($this->number, 4, '0', STR_PAD_LEFT);
+        return $this->team->abbreviation . "-" . str_pad($this->number, 4, '0', STR_PAD_LEFT);
     }
 
     protected static function booted()
