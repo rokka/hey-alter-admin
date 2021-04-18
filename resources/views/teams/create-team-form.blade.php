@@ -26,6 +26,12 @@
             <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="state.name" autofocus />
             <x-jet-input-error for="name" class="mt-2" />
         </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="abbreviation" value="{{ __('Team Abbreviation') }}" />
+            <x-jet-input id="abbreviation" type="text" class="mt-1 block w-full" wire:model.defer="state.abbreviation" autofocus />
+            <x-jet-input-error for="abbreviation" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="actions">

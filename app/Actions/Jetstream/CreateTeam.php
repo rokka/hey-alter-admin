@@ -23,12 +23,14 @@ class CreateTeam implements CreatesTeams
 
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
+            'abbreviation' => ['required', 'string', 'max:10'],
         ])->validateWithBag('createTeam');
 
         AddingTeam::dispatch($user);
 
         $user->switchTeam($team = $user->ownedTeams()->create([
             'name' => $input['name'],
+            'abbreviation' => $input['abbreviation'],
             'personal_team' => false,
         ]));
 
