@@ -108,11 +108,19 @@ class ComputerController extends Controller
     {
         $computer = null;
 
-        $team = Team::where('name', 'HA-' . $location)->first();
+        $team = Team::where('abbreviation', 'HA-' . $location)->first();
 
         if(!is_null($team))
         {  
             $computer = Computer::where('team_id', $team->id)->where('number', $number)->first();
+
+            
+            if (Auth::check())
+            {
+                return redirect()->action(
+                    [ComputerController::class, 'show'], ['computer' => $computer]
+                );
+            }
         }
 
         return view('computers.display')
