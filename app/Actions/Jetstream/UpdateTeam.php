@@ -4,9 +4,9 @@ namespace App\Actions\Jetstream;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Jetstream\Contracts\UpdatesTeamNames;
+use App\Interfaces\UpdatesTeam;
 
-class UpdateTeamName implements UpdatesTeamNames
+class UpdateTeam implements UpdatesTeam
 {
     /**
      * Validate and update the given team's details.
@@ -23,7 +23,7 @@ class UpdateTeamName implements UpdatesTeamNames
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'abbreviation' => ['required', 'string', 'max:10'],
-        ])->validateWithBag('updateTeamName');
+        ])->validateWithBag('updateTeam');
 
         $team->forceFill([
             'name' => $input['name'],
