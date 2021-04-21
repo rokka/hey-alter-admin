@@ -2,17 +2,17 @@
     <!-- Generate API Token -->
     <x-jet-form-section submit="createApiToken">
         <x-slot name="title">
-            {{ __('Create API Token') }}
+            API Schlüssel erstellen
         </x-slot>
 
         <x-slot name="description">
-            {{ __('API tokens allow third-party services to authenticate with our application on your behalf.') }}
+            Mit API-Schlüssel können sich Dienste von Drittanbietern in Ihrem Namen bei unserer Anwendung authentifizieren.
         </x-slot>
 
         <x-slot name="form">
             <!-- Token Name -->
             <div class="col-span-6 sm:col-span-4">
-                <x-jet-label for="name" value="{{ __('Token Name') }}" />
+                <x-jet-label for="name" value="Schlüsselname" />
                 <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="createApiTokenForm.name" autofocus />
                 <x-jet-input-error for="name" class="mt-2" />
             </div>
@@ -20,7 +20,7 @@
             <!-- Token Permissions -->
             @if (Laravel\Jetstream\Jetstream::hasPermissions())
                 <div class="col-span-6">
-                    <x-jet-label for="permissions" value="{{ __('Permissions') }}" />
+                    <x-jet-label for="permissions" value="Berechtigungen" />
 
                     <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
                         @foreach (Laravel\Jetstream\Jetstream::$permissions as $permission)
@@ -36,11 +36,11 @@
 
         <x-slot name="actions">
             <x-jet-action-message class="mr-3" on="created">
-                {{ __('Created.') }}
+                Änderung erfolgreich
             </x-jet-action-message>
 
             <x-jet-button>
-                {{ __('Create') }}
+                Erstellen
             </x-jet-button>
         </x-slot>
     </x-jet-form-section>
@@ -52,11 +52,11 @@
         <div class="mt-10 sm:mt-0">
             <x-jet-action-section>
                 <x-slot name="title">
-                    {{ __('Manage API Tokens') }}
+                    API Schlüssel verwalren
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('You may delete any of your existing tokens if they are no longer needed.') }}
+                    Sie können alle vorhandenen Schlüssel löschen, wenn sie nicht mehr benötigt werden.
                 </x-slot>
 
                 <!-- API Token List -->
@@ -71,18 +71,18 @@
                                 <div class="flex items-center">
                                     @if ($token->last_used_at)
                                         <div class="text-sm text-gray-400">
-                                            {{ __('Last used') }} {{ $token->last_used_at->diffForHumans() }}
+                                            Zuletzt verwendet {{ $token->last_used_at->diffForHumans() }}
                                         </div>
                                     @endif
 
                                     @if (Laravel\Jetstream\Jetstream::hasPermissions())
                                         <button class="cursor-pointer ml-6 text-sm text-gray-400 underline" wire:click="manageApiTokenPermissions({{ $token->id }})">
-                                            {{ __('Permissions') }}
+                                            Berechtigungen
                                         </button>
                                     @endif
 
                                     <button class="cursor-pointer ml-6 text-sm text-red-500" wire:click="confirmApiTokenDeletion({{ $token->id }})">
-                                        {{ __('Delete') }}
+                                        Löschen
                                     </button>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
     <!-- Token Value Modal -->
     <x-jet-dialog-modal wire:model="displayingToken">
         <x-slot name="title">
-            {{ __('API Token') }}
+            API Schlüssel
         </x-slot>
 
         <x-slot name="content">
