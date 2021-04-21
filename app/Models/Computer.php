@@ -25,6 +25,7 @@ class Computer extends Model
         'is_deletion_required',
         'needs_donation_receipt',
         'has_webcam',
+        'has_wlan',
         'required_equipment',
         'needs_donation_receipt',
         'state',
@@ -74,6 +75,5 @@ class Computer extends Model
         static::created(function($computer) {
 	        Mail::send(new ComputerCreated($computer));
 	    });
-
     }
 }

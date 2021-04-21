@@ -17,6 +17,7 @@ class UpdateComputerRequest extends FormRequest
             'is_deletion_required' => [ 'boolean' ],
             'needs_donation_receipt' => [ 'boolean' ],
             'has_webcam' => [ 'boolean' ],
+            'has_wlan' => [ 'boolean' ],
             'required_equipment' => ['nullable', 'string' ],
         ];
     }

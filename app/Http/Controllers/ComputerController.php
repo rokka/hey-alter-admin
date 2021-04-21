@@ -80,9 +80,10 @@ class ComputerController extends Controller
      */
     public function update(UpdateComputerRequest $request, Computer $computer)
     {
-        $computer->is_deletion_required = $request->has('is_deletion_required');
+        $computer->is_deletion_required = $request->has('is_deletion_required');        
         $computer->needs_donation_receipt = $request->has('needs_donation_receipt');
         $computer->has_webcam = $request->has('has_webcam');
+        $computer->has_wlan = $request->has('has_wlan');
 
         $computer->update($request->all());
 

@@ -73,10 +73,21 @@
                         </div>
 
                         <div class="px-4 py-5 bg-white sm:p-6">
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="has_wlan" id="has_wlan" 
+                                       class="form-checkbox rounded-md" value="1" @if(old('has_wlan',$computer->has_wlan)=="1") checked @endif />
+                                <span class="ml-2">WLAN integriert</span>
+                            </label>                            
+                            @error('has_wlan')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="px-4 py-5 bg-white sm:p-6">
                             <label for="required_equipment" class="block font-medium text-sm text-gray-700">Benötigtes Zubehör (komma-getrennt)</label>
                             <input type="text" name="required_equipment" id="required_equipment" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full"
                                    value="{{ old('required_equipment', $computer->required_equipment) }}" />
-                            @error('has_webcam')
+                            @error('required_equipment')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>

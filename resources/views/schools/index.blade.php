@@ -50,7 +50,7 @@
                                 </div>-->
                                 <div class="ml-4">
                                     <div class="text-sm font-medium text-gray-900">
-                                        {{ \Illuminate\Support\Str::limit($school->name, 100, $end='...') }}
+                                        {{ \Illuminate\Support\Str::limit($school->name, 70, $end='...') }}
                                     </div>
                                     <div class="text-sm text-gray-500">
                                         {{ $school->zip }} {{ $school->city }} {{ $school->street }}
