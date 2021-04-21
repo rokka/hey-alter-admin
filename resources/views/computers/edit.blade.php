@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="px-4 py-5 bg-white sm:p-6">
-                            <label for="required_equipment" class="block font-medium text-sm text-gray-700">Benötigtes Zubehör (komma-getrennt)</label>
+                            <label for="required_equipment" class="block font-medium text-sm text-gray-700">Benötigtes Zubehör (außer Web-Cam und WLAN)</label>
                             <input type="text" name="required_equipment" id="required_equipment" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full"
                                    value="{{ old('required_equipment', $computer->required_equipment) }}" />
                             @error('required_equipment')
