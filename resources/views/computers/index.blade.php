@@ -70,7 +70,7 @@
                                 <div class="text-sm font-medium text-gray-900">
                                 @if ($computer->has_webcam == 0)
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                WebCam
+                                Web-Cam
                                 </span>
                                 @endif
                                 @if ($computer->has_wlan == 0)

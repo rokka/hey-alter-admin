@@ -85,6 +85,20 @@
                         </div>
 
                         <div class="px-4 py-5 bg-white sm:p-6">
+                            <label for="state" class="block font-medium text-sm text-gray-700">Status</label>
+                            <select name="state" id="state" class="form-singleselect block rounded-md shadow-sm mt-1 block w-full">
+                                <option value="new" {{ old('state', '') ? ' selected' : '' }}>{{ __('xcomputer.state_new') }}</option>
+                                <option value="in_progress" {{ (old('state', '') == 'in_progress') ? ' selected' : '' }}>{{ __('xcomputer.state_in_progress') }}</option>
+                                <option value="refurbished" {{ (old('state', '') == 'refurbished') ? ' selected' : '' }}>{{ __('xcomputer.state_refurbished') }}</option>
+                                <option value="delivered" {{ (old('state', '') == 'delivered') ? ' selected' : '' }}>{{ __('xcomputer.state_delivered') }}</option>
+                                <option value="destroyed" {{ (old('state', '') == 'destroyed') ? ' selected' : '' }}>{{ __('xcomputer.state_destroyed') }}</option>
+                            </select>
+                            @error('state')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        
+                        <div class="px-4 py-5 bg-white sm:p-6">
                             <label for="comment" class="block font-medium text-sm text-gray-700">Kommentar</label>
                             <textarea type="text" name="comment" id="comment" class="form-input rounded-md shadow-sm mt-1 block w-full">{{ old('comment', '') }}</textarea>
                             @error('comment')
