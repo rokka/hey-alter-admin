@@ -11,6 +11,7 @@ class StoreComputerRequest extends FormRequest
         return [
             'donor' => ['nullable', 'string' ],
             'email' => ['nullable', 'email' ],
+            'type' => ['required', 'string' ],
             'model' => ['nullable', 'string' ],
             'state' => ['required', 'string' ],
             'comment' => [ 'nullable' ],

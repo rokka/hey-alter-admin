@@ -1,6 +1,8 @@
 <x-app-layout>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
+    <script>
+    setTimeout(function () { location.reload(1); }, 60000);
+    </script>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Computer') }}
@@ -50,12 +52,13 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($computers as $computer)
                             <tr class="clickable-row hover:bg-gray-100" data-url="{{ route('computers.show', $computer->id) }}">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <!--<div class="flex items-center">
-                                <div class="flex-shrink-0 h-10 w-10">
-                                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
-                                </div>
-                                -->
+                            <td class="px-4 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    @if ($computer->type == 1)
+                                    <i class="fas fa-desktop" title="Desktop"></i>
+                                    @elseif ($computer->type == 2)
+                                    <i class="fas fa-laptop" title="Laptop"></i>
+                                    @endif
                                 <div class="ml-4">
                                     <div class="text-sm font-medium text-gray-900">
                                     {{ $computer->identifier }}
@@ -116,12 +119,12 @@
                             </td>
                             <td>
                                 @if ($computer->is_deletion_required)
-                                <img src="https://img.icons8.com/ios/452/shredder.png" width="30" height="30" title="Professionelle Löschung gewünscht">
+                                <i class="fa fa-eraser" title="Professionelle Löschung gewünscht"></i>
                                 @endif
                             </td>
                             <td>
                                 @if ($computer->needs_donation_receipt)
-                                <img src="https://image.flaticon.com/icons/png/512/1950/1950312.png" width="30" height="30" title="Spendenquittung gewünscht">
+                                <i class="fa fa-file-text-o" title="Spendenquittung gewünscht"></i>
                                 @endif
                             </td>
                             </tr>

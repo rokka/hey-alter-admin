@@ -53,6 +53,18 @@
                         </div>
 
                         <div class="px-4 py-5 bg-white sm:p-6">
+                            <label for="type" class="block font-medium text-sm text-gray-700">Geräteklasse</label>
+                            <select name="type" id="type" class="form-singleselect block rounded-md shadow-sm mt-1 block w-full">
+                                <option value="0" {{ (old('roles', $computer->type) == '0') ? ' selected' : '' }}>Unbekannt</option>
+                                <option value="1" {{ (old('roles', $computer->type) == '1') ? ' selected' : '' }}>Desktop</option>
+                                <option value="2" {{ (old('roles', $computer->type) == '2') ? ' selected' : '' }}>Laptop</option>
+                            </select>
+                            @error('type')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        
+                        <div class="px-4 py-5 bg-white sm:p-6">
                             <label for="model" class="block font-medium text-sm text-gray-700">Modell</label>
                             <input type="text" name="model" id="model" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full"
                                    value="{{ old('model', $computer->model) }}" />

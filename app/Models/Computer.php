@@ -20,6 +20,7 @@ class Computer extends Model
         'email',
         'number',
         'identifier',
+        'type',
         'model',
         'comment',
         'is_deletion_required',

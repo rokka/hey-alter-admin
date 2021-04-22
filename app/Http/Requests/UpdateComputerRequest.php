@@ -11,6 +11,7 @@ class UpdateComputerRequest extends FormRequest
         return [
             'donor' => ['nullable', 'string' ],
             'email' => ['nullable', 'email' ],
+            'type' => ['nullable', 'string' ],
             'model' => ['nullable', 'string' ],
             'state' => ['required', 'string' ],
             'comment' => [ 'nullable' ],
