@@ -11,88 +11,94 @@
                 <form method="post" action="{{ route('computers.store') }}">
                     @csrf
                     <div class="shadow overflow-hidden sm:rounded-md">
-                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
-                            <label for="donor" class="block font-medium text-sm text-gray-700">Spender</label>
-                            <input type="text" name="donor" id="donor" class="form-input rounded-md shadow-sm mt-1 block w-full"
-                                   value="{{ old('donor', '') }}" placeholder="Nicht angegeben" autofocus />
-                            @error('donor')
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="donor" class="block font-medium text-sm text-gray-700">Spender</label>
+                                <input type="text" name="donor" id="donor" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('donor', '') }}" placeholder="Nicht angegeben" autofocus />
+                                @error('donor')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                                @enderror
+                            </div>
+
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="email" class="block font-medium text-sm text-gray-700">E-Mail-Adresse</label>
+                                <input type="email" name="email" id="email" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('email', '') }}" placeholder="Nicht angegeben" />
+                                @error('email')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="is_deletion_required" id="is_deletion_required" class="form-checkbox rounded-md" value="1" />
+                                    <span class="ml-2">Professionelle Löschung gewünscht</span>
+                                </label>
+                                @error('is_deletion_required')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="needs_donation_receipt" id="needs_donation_receipt" class="form-checkbox rounded-md" value="1" />
+                                    <span class="ml-2">Spendenquittung gewünscht</span>
+                                </label>
+                                @error('needs_donation_receipt')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
-                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
-                            <label for="email" class="block font-medium text-sm text-gray-700">E-Mail-Adresse</label>
-                            <input type="email" name="email" id="email" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('email', '') }}" placeholder="Nicht angegeben" />
-                            @error('email')
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="type" class="block font-medium text-sm text-gray-700">Geräteklasse</label>
+                                <select name="type" id="type" class="form-singleselect block rounded-md shadow-sm mt-1 block w-full">
+                                    <option value="0" {{ (old('type', '') == '0') ? ' selected' : '' }}>Unbekannt</option>
+                                    <option value="1" {{ (old('type', '') == '1') ? ' selected' : '' }}>Desktop</option>
+                                    <option value="2" {{ (old('type', '') == '2') ? ' selected' : '' }}>Laptop</option>
+                                </select>
+                                @error('type')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                                @enderror
+                            </div>
+
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="model" class="block font-medium text-sm text-gray-700">Modell</label>
+                                <input type="text" name="model" id="model" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('model', '') }}" />
+                                @error('model')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
-                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="is_deletion_required" id="is_deletion_required" class="form-checkbox rounded-md" value="1" />
-                                <span class="ml-2">Professionelle Löschung gewünscht</span>
-                            </label>                            
-                            @error('is_deletion_required')
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="has_webcam" id="has_webcam" class="form-checkbox rounded-md" value="1" />
+                                    <span class="ml-2">Web-Cam integriert</span>
+                                </label>
+                                @error('has_webcam')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                                @enderror
+                            </div>
 
-                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="needs_donation_receipt" id="needs_donation_receipt" class="form-checkbox rounded-md" value="1" />
-                                <span class="ml-2">Spendenquittung gewünscht</span>
-                            </label>                            
-                            @error('needs_donation_receipt')
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="has_wlan" id="has_wlan" class="form-checkbox rounded-md" value="1" />
+                                    <span class="ml-2">WLAN integriert</span>
+                                </label>
+                                @error('has_wlan')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
-                            <label for="type" class="block font-medium text-sm text-gray-700">Geräteklasse</label>
-                            <select name="type" id="type" class="form-singleselect block rounded-md shadow-sm mt-1 block w-full">
-                                <option value="0" {{ (old('type', '') == '0') ? ' selected' : '' }}>Unbekannt</option>
-                                <option value="1" {{ (old('type', '') == '1') ? ' selected' : '' }}>Desktop</option>
-                                <option value="2" {{ (old('type', '') == '2') ? ' selected' : '' }}>Laptop</option>
-                            </select>
-                            @error('type')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
-                            <label for="model" class="block font-medium text-sm text-gray-700">Modell</label>
-                            <input type="text" name="model" id="model" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('model', '') }}" />
-                            @error('model')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="has_webcam" id="has_webcam" class="form-checkbox rounded-md" value="1" />
-                                <span class="ml-2">Web-Cam integriert</span>
-                            </label>                            
-                            @error('has_webcam')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="has_wlan" id="has_wlan" class="form-checkbox rounded-md" value="1" />
-                                <span class="ml-2">WLAN integriert</span>
-                            </label>                            
-                            @error('has_wlan')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="required_equipment" class="block font-medium text-sm text-gray-700">Benötigtes Zubehör (außer Web-Cam und WLAN)</label>
                             <input type="text" name="required_equipment" id="required_equipment" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('model', '') }}" />
                             @error('required_equipment')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -106,19 +112,19 @@
                                 <option value="destroyed" {{ (old('state', '') == 'destroyed') ? ' selected' : '' }}>{{ __('xcomputer.state_destroyed') }}</option>
                             </select>
                             @error('state')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
-                        
+
                         <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="comment" class="block font-medium text-sm text-gray-700">Kommentar</label>
                             <textarea type="text" name="comment" id="comment" class="form-input rounded-md shadow-sm mt-1 block w-full">{{ old('comment', '') }}</textarea>
                             @error('comment')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                       <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
+                        <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
                             <button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
                                 Speichern
                             </button>

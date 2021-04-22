@@ -5,7 +5,7 @@
             location.reload(1);
         }, 60000);
     </script>
-    
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Computer') }}
@@ -54,7 +54,7 @@
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         @foreach ($computers as $computer)
-                                        <tr class="clickable-row hover:bg-gray-100" data-url="{{ route('computers.show', $computer->id) }}">
+                                        <tr class="clickable-row hover:bg-gray-100 cursor-pointer" data-url="{{ route('computers.show', $computer->id) }}">
                                             <td class="px-4 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
                                                     @if ($computer->type == 1)
@@ -117,7 +117,7 @@
                                                 </span>
                                                 @endif
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td class="px-6 py-4">
                                                 <div class="text-sm text-gray-900">{!! nl2br(e($computer->comment)) !!}</div>
                                             </td>
                                             <td>
@@ -127,7 +127,7 @@
                                             </td>
                                             <td>
                                                 @if ($computer->needs_donation_receipt)
-                                                <i class="fa fa-file-text-o" title="Spendenquittung gewünscht"></i>
+                                                <i class="fa fa-file px-2" title="Spendenquittung gewünscht"></i>
                                                 @endif
                                             </td>
                                         </tr>
