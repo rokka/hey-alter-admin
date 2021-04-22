@@ -11,7 +11,7 @@
                 <form method="post" action="{{ route('computers.store') }}">
                     @csrf
                     <div class="shadow overflow-hidden sm:rounded-md">
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="donor" class="block font-medium text-sm text-gray-700">Spender</label>
                             <input type="text" name="donor" id="donor" class="form-input rounded-md shadow-sm mt-1 block w-full"
                                    value="{{ old('donor', '') }}" placeholder="Nicht angegeben" autofocus />
@@ -20,7 +20,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="email" class="block font-medium text-sm text-gray-700">E-Mail-Adresse</label>
                             <input type="email" name="email" id="email" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('email', '') }}" placeholder="Nicht angegeben" />
                             @error('email')
@@ -28,7 +28,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label class="inline-flex items-center">
                                 <input type="checkbox" name="is_deletion_required" id="is_deletion_required" class="form-checkbox rounded-md" value="1" />
                                 <span class="ml-2">Professionelle Löschung gewünscht</span>
@@ -38,7 +38,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label class="inline-flex items-center">
                                 <input type="checkbox" name="needs_donation_receipt" id="needs_donation_receipt" class="form-checkbox rounded-md" value="1" />
                                 <span class="ml-2">Spendenquittung gewünscht</span>
@@ -48,7 +48,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="type" class="block font-medium text-sm text-gray-700">Geräteklasse</label>
                             <select name="type" id="type" class="form-singleselect block rounded-md shadow-sm mt-1 block w-full">
                                 <option value="0" {{ (old('type', '') == '0') ? ' selected' : '' }}>Unbekannt</option>
@@ -60,7 +60,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="model" class="block font-medium text-sm text-gray-700">Modell</label>
                             <input type="text" name="model" id="model" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('model', '') }}" />
                             @error('model')
@@ -68,7 +68,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label class="inline-flex items-center">
                                 <input type="checkbox" name="has_webcam" id="has_webcam" class="form-checkbox rounded-md" value="1" />
                                 <span class="ml-2">Web-Cam integriert</span>
@@ -78,7 +78,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label class="inline-flex items-center">
                                 <input type="checkbox" name="has_wlan" id="has_wlan" class="form-checkbox rounded-md" value="1" />
                                 <span class="ml-2">WLAN integriert</span>
@@ -88,7 +88,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="required_equipment" class="block font-medium text-sm text-gray-700">Benötigtes Zubehör (außer Web-Cam und WLAN)</label>
                             <input type="text" name="required_equipment" id="required_equipment" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('model', '') }}" />
                             @error('required_equipment')
@@ -96,7 +96,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="state" class="block font-medium text-sm text-gray-700">Status</label>
                             <select name="state" id="state" class="form-singleselect block rounded-md shadow-sm mt-1 block w-full">
                                 <option value="new" {{ old('state', '') ? ' selected' : '' }}>{{ __('xcomputer.state_new') }}</option>
@@ -110,7 +110,7 @@
                             @enderror
                         </div>
                         
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="comment" class="block font-medium text-sm text-gray-700">Kommentar</label>
                             <textarea type="text" name="comment" id="comment" class="form-input rounded-md shadow-sm mt-1 block w-full">{{ old('comment', '') }}</textarea>
                             @error('comment')

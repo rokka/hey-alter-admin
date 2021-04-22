@@ -11,7 +11,7 @@
                 <form method="post" action="{{ route('schools.store') }}">
                     @csrf
                     <div class="shadow overflow-hidden sm:rounded-md">
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="name" class="block font-medium text-sm text-gray-700">Name</label>
                             <input type="text" name="name" id="name" class="form-input rounded-md shadow-sm mt-1 block w-full"
                                    value="{{ old('name', '') }}" placeholder="Nicht angegeben" autofocus />
@@ -20,7 +20,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="type" class="block font-medium text-sm text-gray-700">Typ</label>
                             <input type="text" name="type" id="type" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('type', '') }}" placeholder="Nicht angegeben" />
                             @error('type')
@@ -28,7 +28,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="zip" class="block font-medium text-sm text-gray-700">PLZ</label>
                             <input type="text" name="zip" id="zip" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('zip', '') }}" placeholder="Nicht angegeben" />
                             @error('zip')
@@ -36,7 +36,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="city" class="block font-medium text-sm text-gray-700">Ort</label>
                             <input type="text" name="city" id="city" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('city', '') }}" placeholder="Nicht angegeben" />
                             @error('city')
@@ -44,7 +44,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="street" class="block font-medium text-sm text-gray-700">Straße</label>
                             <input type="text" name="street" id="street" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('street', '') }}" placeholder="Nicht angegeben" />
                             @error('street')
@@ -52,7 +52,7 @@
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="phone" class="block font-medium text-sm text-gray-700">Telefonnummer</label>
                             <input type="text" name="phone" id="phone" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('phone', '') }}" placeholder="Nicht angegeben" />
                             @error('phone')
