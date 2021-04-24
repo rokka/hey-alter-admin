@@ -74,7 +74,14 @@ class Computer extends Model
         });
 
         static::created(function($computer) {
-	        Mail::send(new ComputerCreated($computer));
+            
+            $user = Auth::user();
+
+            if($user->currentTeam->notfification_on_computer_created &&
+               $user->currentTeam->notfification_email != '')
+            {
+    	        Mail::send(new ComputerCreated($computer));
+            }
 	    });
     }
 }

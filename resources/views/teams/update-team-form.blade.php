@@ -22,7 +22,6 @@
             </div>
         </div>
 
-        <!-- Team Name -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="name" value="Teamname" />
 
@@ -35,7 +34,6 @@
             <x-jet-input-error for="name" class="mt-2" />
         </div>
 
-        <!-- Team Abbreviation -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="abbreviation" value="Team Abkürzung" />
 
@@ -46,6 +44,25 @@
                         :disabled="! Gate::check('update', $team)" />
 
             <x-jet-input-error for="abbreviation" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="notfification_email" value="Zulip Stream E-Mail-Adresse" />
+
+            <x-jet-input id="notfification_email"
+                        type="email"
+                        class="mt-1 block w-full"
+                        wire:model.defer="state.notfification_email"
+                        :disabled="! Gate::check('update', $team)" />
+
+            <x-jet-input-error for="notfification_email" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+        <div class="flex items-center">
+            <x-jet-checkbox id="notfification_on_computer_created" name="notfification_on_computer_created" value="1" class="mr-2" wire:model.defer="state.notfification_on_computer_created" :disabled="! Gate::check('update', $team)" />
+            <x-jet-label for="notfification_on_computer_created" value="Benachrichtigung für neue Computer" />
+        </div>
         </div>
     </x-slot>
 
