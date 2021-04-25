@@ -26,6 +26,8 @@
                                         <th class="w-2/3"></th>
                                     </tr>
                                 </thead>
+
+                                @if (Auth::user()->currentTeam->use_donor_information)
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Spender
@@ -45,33 +47,8 @@
                                     </td>
                                 </tr>
                                 @endif
-
-                                <tr class="border-b">
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Professionelle Löschung gewünscht
-                                    </th>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
-                                        @if ($computer->is_deletion_required)
-                                        Ja
-                                        @else
-                                        Nein
-                                        @endif
-                                    </td>
-                                </tr>
-
-                                <tr class="border-b">
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Spendenquittung gewünscht
-                                    </th>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
-                                        @if ($computer->needs_donation_receipt)
-                                        Ja
-                                        @else
-                                        Nein
-                                        @endif
-                                    </td>
-                                </tr>
-
+                                @endif
+                                
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Geräteklasse
@@ -150,6 +127,32 @@
                                     </td>
                                 </tr>
                                 @endif
+
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Professionelle Löschung gewünscht
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
+                                        @if ($computer->is_deletion_required)
+                                        Ja
+                                        @else
+                                        Nein
+                                        @endif
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Spendenquittung gewünscht
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
+                                        @if ($computer->needs_donation_receipt)
+                                        Ja
+                                        @else
+                                        Nein
+                                        @endif
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>

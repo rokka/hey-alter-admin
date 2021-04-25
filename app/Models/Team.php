@@ -31,6 +31,7 @@ class Team extends JetstreamTeam
         'abbreviation',
         'notfification_email',
         'notfification_on_computer_created',
+        'use_donor_information',
         'personal_team',
     ];
 

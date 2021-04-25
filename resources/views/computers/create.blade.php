@@ -11,6 +11,8 @@
                 <form method="post" action="{{ route('computers.store') }}">
                     @csrf
                     <div class="shadow overflow-hidden sm:rounded-md">
+                    
+                        @if (Auth::user()->currentTeam->use_donor_information)
                         <div class="grid grid-cols-1 sm:grid-cols-2">
                             <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                                 <label for="donor" class="block font-medium text-sm text-gray-700">Spender</label>
@@ -28,27 +30,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2">
-                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
-                                <label class="inline-flex items-center">
-                                    <input type="checkbox" name="is_deletion_required" id="is_deletion_required" class="form-checkbox rounded-md" value="1" />
-                                    <span class="ml-2">Professionelle Löschung gewünscht</span>
-                                </label>
-                                @error('is_deletion_required')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
-                                <label class="inline-flex items-center">
-                                    <input type="checkbox" name="needs_donation_receipt" id="needs_donation_receipt" class="form-checkbox rounded-md" value="1" />
-                                    <span class="ml-2">Spendenquittung gewünscht</span>
-                                </label>
-                                @error('needs_donation_receipt')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
+                        @endif
 
                         <div class="grid grid-cols-1 sm:grid-cols-2">
                             <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
@@ -122,6 +104,28 @@
                             @error('comment')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="is_deletion_required" id="is_deletion_required" class="form-checkbox rounded-md" value="1" />
+                                    <span class="ml-2">Professionelle Löschung gewünscht</span>
+                                </label>
+                                @error('is_deletion_required')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="needs_donation_receipt" id="needs_donation_receipt" class="form-checkbox rounded-md" value="1" />
+                                    <span class="ml-2">Spendenquittung gewünscht</span>
+                                </label>
+                                @error('needs_donation_receipt')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
