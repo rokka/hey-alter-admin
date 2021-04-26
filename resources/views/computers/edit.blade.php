@@ -12,99 +12,99 @@
                     @csrf
                     @method('PUT')
                     <div class="shadow overflow-hidden sm:rounded-md">
-                        <div class="px-4 py-5 bg-white sm:p-6">
-                            <label for="donor" class="block font-medium text-sm text-gray-700">Spender</label>
-                            <input type="text" name="donor" id="donor" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full"
-                                   value="{{ old('donor', $computer->donor) }}" />
-                            @error('donor')
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="donor" class="block font-medium text-sm text-gray-700">Spender</label>
+                                <input type="text" name="donor" id="donor" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('donor', $computer->donor) }}" placeholder="Nicht angegeben" />
+                                @error('donor')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        
-                        <div class="px-4 py-5 bg-white sm:p-6">
-                            <label for="email" class="block font-medium text-sm text-gray-700">E-Mail-Adresse</label>
-                            <input type="email" name="email" id="email" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full"
-                                   value="{{ old('email', $computer->email) }}" />
-                            @error('email')
+                                @enderror
+                            </div>
+
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="email" class="block font-medium text-sm text-gray-700">E-Mail-Adresse</label>
+                                <input type="email" name="email" id="email" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('email', $computer->email) }}" placeholder="Nicht angegeben" />
+                                @error('email')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                                @enderror
+                            </div>
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="is_deletion_required" id="is_deletion_required" 
-                                class="form-checkbox rounded-md" value="1" @if(old('is_deletion_required',$computer->is_deletion_required)=="1") checked @endif />
-                                <span class="ml-2">Professionelle Löschung gewünscht</span>
-                            </label>                            
-                            @error('is_deletion_required')
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="is_deletion_required" id="is_deletion_required" class="form-checkbox rounded-md" value="1" @if(old('is_deletion_required',$computer->is_deletion_required)=="1") checked @endif />
+                                    <span class="ml-2">Professionelle Löschung gewünscht</span>
+                                </label>
+                                @error('is_deletion_required')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                                @enderror
+                            </div>
+
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="needs_donation_receipt" id="needs_donation_receipt" class="form-checkbox rounded-md" value="1" @if(old('needs_donation_receipt',$computer->needs_donation_receipt)=="1") checked @endif />
+                                    <span class="ml-2">Spendenquittung gewünscht</span>
+                                </label>
+                                @error('needs_donation_receipt')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="needs_donation_receipt" id="needs_donation_receipt"
-                                      class="form-checkbox rounded-md" value="1" @if(old('needs_donation_receipt',$computer->needs_donation_receipt)=="1") checked @endif />
-                                <span class="ml-2">Spendenquittung gewünscht</span>
-                            </label>                            
-                            @error('needs_donation_receipt')
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="type" class="block font-medium text-sm text-gray-700">Geräteklasse</label>
+                                <select name="type" id="type" class="form-singleselect block rounded-md shadow-sm mt-1 block w-full">
+                                    <option value="0" {{ (old('roles', $computer->type) == '0') ? ' selected' : '' }}>Unbekannt</option>
+                                    <option value="1" {{ (old('roles', $computer->type) == '1') ? ' selected' : '' }}>Desktop</option>
+                                    <option value="2" {{ (old('roles', $computer->type) == '2') ? ' selected' : '' }}>Laptop</option>
+                                </select>
+                                @error('type')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                                @enderror
+                            </div>
+
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="model" class="block font-medium text-sm text-gray-700">Modell</label>
+                                <input type="text" name="model" id="model" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('model', $computer->model) }}" />
+                                @error('model')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
-                            <label for="type" class="block font-medium text-sm text-gray-700">Geräteklasse</label>
-                            <select name="type" id="type" class="form-singleselect block rounded-md shadow-sm mt-1 block w-full">
-                                <option value="0" {{ (old('roles', $computer->type) == '0') ? ' selected' : '' }}>Unbekannt</option>
-                                <option value="1" {{ (old('roles', $computer->type) == '1') ? ' selected' : '' }}>Desktop</option>
-                                <option value="2" {{ (old('roles', $computer->type) == '2') ? ' selected' : '' }}>Laptop</option>
-                            </select>
-                            @error('type')
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="has_webcam" id="has_webcam" class="form-checkbox rounded-md" value="1" @if(old('has_webcam',$computer->has_webcam)=="1") checked @endif />
+                                    <span class="ml-2">Web-Cam integriert</span>
+                                </label>
+                                @error('has_webcam')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        
-                        <div class="px-4 py-5 bg-white sm:p-6">
-                            <label for="model" class="block font-medium text-sm text-gray-700">Modell</label>
-                            <input type="text" name="model" id="model" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full"
-                                   value="{{ old('model', $computer->model) }}" />
-                            @error('model')
+                                @enderror
+                            </div>
+
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="has_wlan" id="has_wlan" class="form-checkbox rounded-md" value="1" @if(old('has_wlan',$computer->has_wlan)=="1") checked @endif />
+                                    <span class="ml-2">WLAN integriert</span>
+                                </label>
+                                @error('has_wlan')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                                @enderror
+                            </div>
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="has_webcam" id="has_webcam" 
-                                       class="form-checkbox rounded-md" value="1" @if(old('has_webcam',$computer->has_webcam)=="1") checked @endif />
-                                <span class="ml-2">Web-Cam integriert</span>
-                            </label>                            
-                            @error('has_webcam')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="px-4 py-5 bg-white sm:p-6">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="has_wlan" id="has_wlan" 
-                                       class="form-checkbox rounded-md" value="1" @if(old('has_wlan',$computer->has_wlan)=="1") checked @endif />
-                                <span class="ml-2">WLAN integriert</span>
-                            </label>                            
-                            @error('has_wlan')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="required_equipment" class="block font-medium text-sm text-gray-700">Benötigtes Zubehör (außer Web-Cam und WLAN)</label>
-                            <input type="text" name="required_equipment" id="required_equipment" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full"
-                                   value="{{ old('required_equipment', $computer->required_equipment) }}" />
+                            <input type="text" name="required_equipment" id="required_equipment" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('required_equipment', $computer->required_equipment) }}" />
                             @error('required_equipment')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="state" class="block font-medium text-sm text-gray-700">Status</label>
                             <select name="state" id="state" class="form-singleselect block rounded-md shadow-sm mt-1 block w-full">
                                 <option value="new" {{ (old('roles', $computer->state) == 'new') ? ' selected' : '' }}>{{ __('xcomputer.state_new') }}</option>
@@ -114,15 +114,15 @@
                                 <option value="destroyed" {{ (old('roles', $computer->state) == 'destroyed') ? ' selected' : '' }}>{{ __('xcomputer.state_destroyed') }}</option>
                             </select>
                             @error('state')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="comment" class="block font-medium text-sm text-gray-700">Kommentar</label>
                             <textarea type="text" name="comment" id="comment" class="form-input rounded-md shadow-sm mt-1 block w-full">{{ old('comment', $computer->comment) }}</textarea>
                             @error('comment')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 

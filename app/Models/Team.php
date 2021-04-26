@@ -29,6 +29,8 @@ class Team extends JetstreamTeam
     protected $fillable = [
         'name',
         'abbreviation',
+        'notfification_email',
+        'notfification_on_computer_created',
         'personal_team',
     ];
 

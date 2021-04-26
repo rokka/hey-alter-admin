@@ -56,7 +56,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($schools as $school)
-                            <tr class="clickable-row hover:bg-gray-100" data-url="{{ route('schools.show', $school->id) }}">
+                            <tr class="clickable-row hover:bg-gray-100 cursor-pointer" data-url="{{ route('schools.show', $school->id) }}">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <!--<div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10">

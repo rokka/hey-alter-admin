@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class ComputerCreated extends Mailable
 {
@@ -31,10 +32,10 @@ class ComputerCreated extends Mailable
      */
     public function build()
     {
-        $recipient = App::environment('local') ? 'rokka@gmx.net' : 'zulip+heyalter_essen.416b79cfe446f5026ea9cba17347e9f8.prefer-html@stratum0.org';
+        $user = Auth::user();
 
         return $this
-            ->to($recipient)
+            ->to($user->currentTeam->notfification_email)
             ->subject('Computerliste')
             ->view('emails.computers.created');
     }
