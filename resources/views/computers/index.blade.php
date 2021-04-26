@@ -18,7 +18,21 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="block mb-8">
-                <a href="{{ route('computers.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Computer hinzufügen</a>
+                <a href="{{ route('computers.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-block">Computer hinzufügen</a>
+                    <form action="{{ route('computers.index') }}" method="GET" role="search" class="mx-auto float-right inline-block">
+                            <div class="input-group">
+                                <input type="text" class="form-control mr-2 pr-24 py-2 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring" name="search" placeholder="Computer durchsuchen.." id="search" value="{{ request()->query('search') }}">
+                                <a href="{{ route('computers.index') }}" class=" mt-1">
+                                    <span class="input-group-btn">
+                                        <span class="input-group-btn mr-5 mt-1">
+                                            <button class="btn btn-info" type="submit" title="Computer durchsuchen">
+                                                <span class="fas fa-search fa-lg"></span>
+                                            </button>
+                                        </span>
+                                    </span>
+                                </a>
+                            </div>
+                    </form>
             </div>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
               <div class="flex flex-col">
@@ -114,7 +128,7 @@
                                 </span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">                            
+                            <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{!! nl2br(e($computer->comment)) !!}</div>
                             </td>
                             <td>

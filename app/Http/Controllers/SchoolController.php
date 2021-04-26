@@ -19,7 +19,35 @@ class SchoolController extends Controller
     {
         $user = Auth::user();
 
-        $schools = School::with('team')->where('team_id', $user->currentTeam->id)->orderBy('name','asc')->get();
+        $query = request()->query('search');
+        $search = strtolower($query);
+
+        if ($search) {
+
+            $schools = School::with('team')->where(function($query) use ($search)
+            {
+
+                $columns = ['name', 'type', 'zip', 'city', 'street', 'phone'];
+
+                foreach ($columns as $column)
+                {
+                    $query->orWhere($column, 'LIKE', '%'.$search.'%');
+
+                }
+
+
+            })
+
+                ->where('team_id', $user->currentTeam->id)
+                ->orderBy('name')
+                ->get();
+
+        } else {
+
+            $schools = School::with('team')->where('team_id', $user->currentTeam->id)->orderBy('name','asc')->get();
+        }
+
+
 
         return view('schools.index', compact('schools'));
     }

@@ -21,7 +21,70 @@ class ComputerController extends Controller
     {
         $user = Auth::user();
 
-        $computers = Computer::with('team')->where('team_id', $user->currentTeam->id)->orderBy('id','desc')->get();
+        $query = request()->query('search');
+        $search = strtolower($query);
+
+        if ($search) {
+
+            $computers = Computer::with('team')->where(function($query) use ($search)
+            {
+
+                $columns = ['donor', 'model', 'email', 'cpu', 'required_equipment', 'comment'];
+
+                foreach ($columns as $column)
+                {
+                    $query->orWhere($column, 'LIKE', '%'.$search.'%');
+
+                }
+
+
+                $otherSearches = ['wlan', 'w-lan', 'web-cam', 'webcam', 'desktop', 'laptop'];
+                $searchResult = "";
+
+
+                $len=strlen($search);
+                foreach($otherSearches as $variant) {
+                    if (stristr($search, substr($variant, 0, $len))) {
+                        if (in_array($variant, $otherSearches)) {
+                            $searchResult = str_replace('-', '', $variant);
+                        }
+                    }
+                }
+
+
+                switch ($searchResult) {
+                    case 'wlan':
+                        $query->orWhere('has_wlan', 'LIKE', 0)
+                            ->get();
+                        break;
+
+                    case 'webcam':
+                        $query->orWhere('has_webcam', 'LIKE', 0)
+                            ->get();
+                        break;
+
+                    case 'desktop':
+                        $query->orWhere('type', 'LIKE', 1)
+                            ->get();
+                        break;
+
+                    case 'laptop':
+                        $query->orWhere('type', 'LIKE', 2)
+                            ->get();
+                        break;
+
+                    }
+
+            })
+
+                ->where('team_id', $user->currentTeam->id)
+                ->orderBy('id', 'desc')
+                ->get();
+
+        } else {
+
+        $computers = Computer::with('team')->where('team_id', $user->currentTeam->id)->orderBy('id', 'desc')->get();
+        }
 
         return view('computers.index', compact('computers'));
     }
@@ -80,7 +143,7 @@ class ComputerController extends Controller
      */
     public function update(UpdateComputerRequest $request, Computer $computer)
     {
-        $computer->is_deletion_required = $request->has('is_deletion_required');        
+        $computer->is_deletion_required = $request->has('is_deletion_required');
         $computer->needs_donation_receipt = $request->has('needs_donation_receipt');
         $computer->has_webcam = $request->has('has_webcam');
         $computer->has_wlan = $request->has('has_wlan');
@@ -112,10 +175,10 @@ class ComputerController extends Controller
         $team = Team::where('abbreviation', 'HA-' . $location)->first();
 
         if(!is_null($team))
-        {  
+        {
             $computer = Computer::where('team_id', $team->id)->where('number', $number)->first();
 
-            
+
             if (Auth::check())
             {
                 return redirect()->action(
