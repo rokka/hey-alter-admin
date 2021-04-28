@@ -26,7 +26,7 @@
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="password" value="Testzugang: test@heyalter.com // testtest" />
+                <a class="inline-block right-0 font-bold text-sm text-500 hover:text-indigo-200" href="#" onClick="autoFill('Testzugang'); return false;" >Testzugang verwenden</a>
             </div>
 
             <div class="block mt-4">
@@ -43,10 +43,21 @@
                     </a>
                 @endif
 
-                <x-jet-button class="ml-4">
+                <x-jet-button id="login_submit" class="ml-4">
                     {{ __('Log in') }}
                 </x-jet-button>
             </div>
         </form>
     </x-jet-authentication-card>
+
+    <script>
+        function autoFill() {
+
+            document.getElementById('email').value = 'test@heyalter.com';
+            document.getElementById('password').value = 'testtest';
+
+            var testaccount = document.getElementById('login_submit');
+            testaccount.click();
+        }
+    </script>
 </x-guest-layout>
