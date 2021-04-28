@@ -31,9 +31,14 @@ class ComputerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('computers.create');
+        return view('computers.create')
+                ->with('cpu', $request->input("cpu"))
+                ->with('memory_in_gb', $request->input("memory_in_gb"))
+                ->with('hard_drive_type', $request->input("hard_drive_type"))
+                ->with('hard_drive_space_in_gb', $request->input("hard_drive_space_in_gb"))
+            ;
     }
 
     /**
@@ -55,7 +60,7 @@ class ComputerController extends Controller
      * @param  \App\Models\Computer $computer
      * @return \Illuminate\Http\Response
      */
-    public function show(Computer $computer)
+    public function show(Request $request, Computer $computer)
     {
         return view('computers.show', compact('computer'));
     }
@@ -128,5 +133,5 @@ class ComputerController extends Controller
             ->with('computer', $computer)
             ->with('location', $location)
             ->with('number', $number);
-    }
+    }    
 }

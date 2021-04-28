@@ -129,6 +129,46 @@
                             </div>
                         </div>
 
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="cpu" class="block font-medium text-sm text-gray-700">CPU Modell</label>
+                                <input type="text" name="cpu" id="cpu" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('cpu', $computer->cpu) }}" placeholder="Unbekannt" />
+                                @error('cpu')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="memory_in_gb" class="block font-medium text-sm text-gray-700">Arbeitsspeicher in GB</label>
+                                <input type="text" name="memory_in_gb" id="memory_in_gb" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('memory_in_gb', $computer->memory_in_gb) }}" />
+                                @error('memory_in_gb')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="required_equipment" class="block font-medium text-sm text-gray-700">Festplattentyp</label>
+                                <select name="hard_drive_type" id="hard_drive_type" class="form-singleselect block rounded-md shadow-sm mt-1 block w-full">
+                                    <option value="0" {{ (old('roles', $computer->hard_drive_type) == 0) ? ' selected' : '' }}>Unbekannt</option>
+                                    <option value="1" {{ (old('roles', $computer->hard_drive_type) == 1) ? ' selected' : '' }}>HDD</option>
+                                    <option value="2" {{ (old('roles', $computer->hard_drive_type) == 2) ? ' selected' : '' }}>SSD</option>
+                                </select>
+                                @error('required_equipment')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="hard_drive_space_in_gb" class="block font-medium text-sm text-gray-700">Festplattengröße in GB</label>
+                                <input type="text" name="hard_drive_space_in_gb" id="hard_drive_space_in_gb" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('hard_drive_space_in_gb', $computer->hard_drive_space_in_gb) }}" />
+                                @error('hard_drive_space_in_gb')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
                             <button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
                                 Speichern

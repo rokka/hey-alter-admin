@@ -20,6 +20,10 @@ class StoreComputerRequest extends FormRequest
             'has_webcam' => [ 'boolean' ],
             'has_wlan' => [ 'boolean' ],
             'required_equipment' => ['nullable', 'string' ],
+            'cpu' => ['nullable', 'string' ],
+            'memory_in_gb' => ['nullable', 'int' ],
+            'hard_drive_type' => ['nullable', 'int' ],
+            'hard_drive_space_in_gb' => ['nullable', 'int' ],
         ];
     }
 

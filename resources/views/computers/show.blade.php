@@ -153,6 +153,48 @@
                                         @endif
                                     </td>
                                 </tr>
+<!-- 
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Geräteklasse
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
+
+                                    </td>
+                                </tr> -->
+
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        CPU Modell
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
+                                        {{ !empty($computer->cpu) ? $computer->cpu : 'Unbekannt' }}
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Arbeitsspeicher
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
+                                        {{ !empty($computer->memory_in_gb) ? $computer->memory_in_gb . ' GB' : 'Unbekannt' }}
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Festplatte
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
+                                        {{ !empty($computer->hard_drive_space_in_gb) ? $computer->hard_drive_space_in_gb . ' GB' : '' }}
+
+                                        @if ($computer->hard_drive_type == 1)
+                                        HDD
+                                        @elseif ($computer->hard_drive_type == 2)
+                                        SSD
+                                        @endif
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>
