@@ -63,6 +63,10 @@
                                                     <i class="fas fa-desktop" title="Desktop"></i>
                                                     @elseif ($computer->type == 2)
                                                     <i class="fas fa-laptop" title="Laptop"></i>
+                                                    @elseif ($computer->type == 3)
+                                                    <i class="fas fa-tablet-alt" title="Tablet"></i>
+                                                    @elseif ($computer->type == 4)
+                                                    <i class="fas fa-hdd" title="Small Form Factor"></i>
                                                     @endif
                                                     <div class="ml-4">
                                                         <div class="text-sm font-medium text-gray-900">

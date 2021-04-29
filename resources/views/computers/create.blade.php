@@ -39,6 +39,8 @@
                                     <option value="0" {{ (old('type', '') == '0') ? ' selected' : '' }}>Unbekannt</option>
                                     <option value="1" {{ (old('type', '') == '1') ? ' selected' : '' }}>Desktop</option>
                                     <option value="2" {{ (old('type', '') == '2') ? ' selected' : '' }}>Laptop</option>
+                                    <option value="3" {{ (old('type', '') == '3') ? ' selected' : '' }}>Tablet</option>
+                                    <option value="4" {{ (old('type', '') == '4') ? ' selected' : '' }}>Small Form Factor</option>
                                 </select>
                                 @error('type')
                                 <p class="text-sm text-red-600">{{ $message }}</p>

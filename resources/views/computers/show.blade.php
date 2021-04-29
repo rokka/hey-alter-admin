@@ -58,6 +58,10 @@
                                         Desktop
                                         @elseif ($computer->type == 2)
                                         Laptop
+                                        @elseif ($computer->type == 3)
+                                        Tablet
+                                        @elseif ($computer->type == 4)
+                                        Small Form Factor
                                         @else
                                         Unbekannt
                                         @endif
