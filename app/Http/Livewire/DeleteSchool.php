@@ -9,14 +9,14 @@ class DeleteSchool extends Component
 {
 
     /**
-     * The team instance.
+     * The school instance.
      *
      * @var mixed
      */
     public $school;
 
     /**
-     * Indicates if team deletion is being confirmed.
+     * Indicates if school deletion is being confirmed.
      *
      * @var bool
      */
@@ -34,7 +34,7 @@ class DeleteSchool extends Component
     }
 
     /**
-     * Delete the team.
+     * Delete the school.
      *
      * @param  \App\Models\School $school
      * @return \Illuminate\Http\Response

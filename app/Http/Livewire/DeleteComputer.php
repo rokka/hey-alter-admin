@@ -9,14 +9,14 @@ class DeleteComputer extends Component
 {
 
     /**
-     * The team instance.
+     * The computer instance.
      *
      * @var mixed
      */
     public $computer;
 
     /**
-     * Indicates if team deletion is being confirmed.
+     * Indicates if computer deletion is being confirmed.
      *
      * @var bool
      */
@@ -34,7 +34,7 @@ class DeleteComputer extends Component
     }
 
     /**
-     * Delete the team.
+     * Delete the computer.
      *
      * @param  \App\Models\Computer $computer
      * @return \Illuminate\Http\Response
