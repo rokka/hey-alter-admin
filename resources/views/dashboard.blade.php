@@ -14,7 +14,11 @@
                     </div>
 
                     <div class="mt-8 text-2xl">
-                        Willkommen zum "Hey, Alter!" Verwaltungswerkzeug
+                        Willkommen zu "Hey, Neuer!"
+                    </div>
+
+                    <div class="mt-8 text-l">
+                        Mit diesem Tool können die Computer verwaltet werden, die über Hey, Alter! eingegangen sind.
                     </div>
 
                     <div class="mt-6 text-gray-500">
