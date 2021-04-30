@@ -8,12 +8,10 @@
     <div>
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="block mb-8">
-                <a href="{{ route('computers.edit', $computer->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-block">Computer bearbeiten</a>
-                <form action="{{ route('computers.destroy', $computer->id)}}" method="post" class="float-right inline-block">
-                    @csrf
-                    @method('DELETE')
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="submit" onclick="return confirm('Sind Sie sicher, dass sie den Eintrag für {{ $computer->model }} löschen wollen?')">Computer löschen</button>
-                </form>
+                <a href="{{ route('computers.edit', $computer->id) }}" class="inline-flex items-center justify-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-600 disabled:opacity-25 transition inline-block">Computer bearbeiten</a>
+                <div class="float-right inline-block">
+                    @livewire('computers.delete', ['computer' => $computer])
+                </div>
             </div>
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -48,7 +46,7 @@
                                 </tr>
                                 @endif
                                 @endif
-                                
+
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Geräteklasse
@@ -157,7 +155,7 @@
                                         @endif
                                     </td>
                                 </tr>
-<!-- 
+<!--
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Geräteklasse
@@ -205,7 +203,8 @@
                 </div>
             </div>
             <div class="block mt-8">
-                <a href="{{ route('computers.index') }}" class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Zurück zur Liste</a>
+                <a href="{{ route('computers.index') }}" class="inline-flex items-center justify-center px-4 py-2 bg-gray-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 focus:outline-none focus:border-gray-700 focus:shadow-outline-gray active:bg-gray-600 disabled:opacity-25 transition inline-block">Zurück zur Liste</a>
+
             </div>
         </div>
     </div>

@@ -85,7 +85,7 @@ class ComputerController extends Controller
      */
     public function update(UpdateComputerRequest $request, Computer $computer)
     {
-        $computer->is_deletion_required = $request->has('is_deletion_required');        
+        $computer->is_deletion_required = $request->has('is_deletion_required');
         $computer->needs_donation_receipt = $request->has('needs_donation_receipt');
         $computer->has_webcam = $request->has('has_webcam');
         $computer->has_wlan = $request->has('has_wlan');
@@ -95,21 +95,6 @@ class ComputerController extends Controller
         return view('computers.show', compact('computer'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Computer $computer
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $computer = Computer::find($id);
-
-        $computer->delete();
-
-        return redirect()->route('computers.index')->with('message', 'Der Eintrag wurde gelöscht.');
-    }
-
     public function display($location, $number)
     {
         $computer = null;
@@ -117,10 +102,10 @@ class ComputerController extends Controller
         $team = Team::where('abbreviation', 'HA-' . $location)->first();
 
         if(!is_null($team))
-        {  
+        {
             $computer = Computer::where('team_id', $team->id)->where('number', $number)->first();
 
-            
+
             if (Auth::check())
             {
                 return redirect()->action(
@@ -133,5 +118,5 @@ class ComputerController extends Controller
             ->with('computer', $computer)
             ->with('location', $location)
             ->with('number', $number);
-    }    
+    }
 }

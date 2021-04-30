@@ -82,19 +82,4 @@ class SchoolController extends Controller
 
         return view('schools.show', compact('school'));
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\School $school
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $school = School::find($id);
-
-        $school->delete();
-
-        return redirect()->route('schools.index')->with('message', 'Der Eintrag wurde gelöscht.');
-    }
 }

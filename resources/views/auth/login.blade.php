@@ -25,25 +25,23 @@
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
-            <div class="mt-4">
-                <a class="inline-block right-0 font-bold text-sm text-500 hover:text-indigo-200" href="#" onClick="autoFill('Testzugang'); return false;" >Testzugang verwenden</a>
-            </div>
-
-            <div class="block mt-4">
+            <div class="flex justify-between mt-6">
                 <label for="remember_me" class="flex items-center">
                     <x-jet-checkbox id="remember_me" name="remember" />
                     <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
-            </div>
 
-            <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
+            </div>
 
-                <x-jet-button id="login_submit" class="ml-4">
+            <div class="flex items-center mt-8 justify-between">
+                <a class="inline-block right-0 font-bold text-sm text-500 hover:text-indigo-200" href="#" onClick="autoFill('Testzugang'); return false;" >Testzugang verwenden</a>
+
+                <x-jet-button id="login_submit" class="ml-4 flex">
                     {{ __('Log in') }}
                 </x-jet-button>
             </div>
