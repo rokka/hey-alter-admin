@@ -53,9 +53,9 @@
                                     Weiteres Informationsmaterial zum Download:
                                 </h2>
                                 <ul class="list-disc leading-tight px-4 py-3">
-                                    <li><a href="" target="_blank">Bedarfsliste Klasse</a></li>
-                                    <li><a href="" target="_blank">Häufige Frage</a></li>
-                                    <li><a href="" target="_blank">Infos für Lehrer</a></li>
+                                    <li><a href="https://heyneuer.com/files/Bedarfsliste_Klasse.pdf" target="_blank">Bedarfsliste Klasse</a></li>
+                                    <li><a href="https://heyneuer.com/files/Hey_FAQ.pdf" target="_blank">Häufige Frage</a></li>
+                                    <li><a href="https://heyneuer.com/files/Hey_Schule_Infos für Lehrer.pdf" target="_blank">Infos für Lehrer</a></li>
                                 </ul>
                             </div>
                         </div>
