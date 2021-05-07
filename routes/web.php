@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ComputerController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\InquiryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,17 +19,17 @@ use App\Http\Controllers\SchoolController;
 
 Route::redirect('/', '/login');
 
-Route::get(
-    '/HA-{location}-{number}', 
-    [ComputerController::class, 'display'])
-->where('location', '[A-Za-z]+')
-->where('number', '[0-9]+');
+Route::get('/HA-{location}-{number}', [ComputerController::class, 'display'])->where('location', '[A-Za-z]+')->where('number', '[0-9]+');
+
+Route::get('/anfrage', [InquiryController::class, 'create']);
+Route::post('/anfrage', [InquiryController::class, 'store'])->name("inquiries.store");
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/computers/HA-{location}-{number}/edit', [ComputerController::class, 'edit2'])->where('location', '[A-Za-z]+')->where('number', '[0-9]+');
     Route::resource('/computers', ComputerController::class);
     Route::resource('/schools', SchoolController::class);
 });

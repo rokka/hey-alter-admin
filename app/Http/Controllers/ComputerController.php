@@ -76,6 +76,40 @@ class ComputerController extends Controller
         return view('computers.edit', compact('computer'));
     }
 
+    public function edit2(Request $request, $location, $number)
+    {
+        $user = Auth::user();
+
+        $team = Team::where('abbreviation', 'HA-' . $location)->first();
+
+        if(is_null($team))
+        {
+            abort(404, 'Unkown team');
+        }
+
+        if($team->id != $user->currentTeam->id)
+        {
+            abort(403, 'Unauthorized');
+        }
+ 
+        $computer = Computer::where('team_id', $team->id)->where('number', $number)->first();
+
+        if(is_null($computer))
+        {
+            abort(404, 'Unkown computer');
+        }
+
+        if($request->has("model") && strlen($request->input("model") > 0)) $computer->model = $request->input("model");
+        if($request->has("cpu")) $computer->cpu = $request->input("cpu");
+        if($request->has("memory_in_gb"))  $computer->memory_in_gb = $request->input("memory_in_gb");
+        if($request->has("hard_drive_type")) $computer->hard_drive_type = $request->input("hard_drive_type");
+        if($request->has("hard_drive_space_in_gb")) $computer->hard_drive_space_in_gb = $request->input("hard_drive_space_in_gb");
+        if($request->has("type_name") && $request->input("type_name") == 'desktop') $computer->type = 1;
+        if($request->has("type_name") && $request->input("type_name") == 'laptop') $computer->type = 2;
+        
+        return view('computers.edit', compact('computer'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
