@@ -8,12 +8,10 @@
     <div>
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="block mb-8">
-                <a href="{{ route('schools.edit', $school->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-block">Schule bearbeiten</a>
-                <form action="{{ route('schools.destroy', $school->id)}}" method="post" class="float-right inline-block">
-                    @csrf
-                    @method('DELETE')
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="submit" onclick="return confirm('Sind Sie sicher, dass sie den Eintrag für {{ $school->name }} löschen wollen?')">Schule löschen</button>
-                </form>
+                <a href="{{ route('schools.edit', $school->id) }}" class="inline-flex items-center justify-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-600 disabled:opacity-25 transition inline-block">Schule bearbeiten</a>
+                <div class="float-right inline-block">
+                    @livewire('schools.delete', ['school' => $school])
+                </div>
             </div>
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -87,7 +85,7 @@
                 </div>
             </div>
             <div class="block mt-8">
-                <a href="{{ route('schools.index') }}" class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Zurück zur Liste</a>
+                <a href="{{ route('schools.index') }}" class="inline-flex items-center justify-center px-4 py-2 bg-gray-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 focus:outline-none focus:border-gray-700 focus:shadow-outline-gray active:bg-gray-600 disabled:opacity-25 transition inline-block">Zurück zur Liste</a>
             </div>
         </div>
     </div>
