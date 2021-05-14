@@ -25,6 +25,7 @@ class UpdateTeam implements UpdatesTeam
             'abbreviation' => ['required', 'string', 'max:10'],
             'notfification_email' => ['string', 'email', 'max:255'],
             'notfification_on_computer_created' => [ 'boolean' ],
+            'use_donor_information' => [ 'boolean' ],
         ])->validateWithBag('updateTeam');
 
         $team->forceFill([
@@ -32,6 +33,7 @@ class UpdateTeam implements UpdatesTeam
             'abbreviation' => $input['abbreviation'],
             'notfification_email' => $input['notfification_email'],
             'notfification_on_computer_created' => $input['notfification_on_computer_created'],
+            'use_donor_information' => $input['use_donor_information'],
         ])->save();
     }
 }

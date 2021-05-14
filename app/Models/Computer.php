@@ -30,6 +30,10 @@ class Computer extends Model
         'required_equipment',
         'needs_donation_receipt',
         'state',
+        'cpu',
+        'memory_in_gb',
+        'hard_drive_type',
+        'hard_drive_space_in_gb',
     ];
 
     public function team()
@@ -70,6 +74,26 @@ class Computer extends Model
             if(is_null($computer->required_equipment))
             {
                 $computer->required_equipment = '';
+            }
+
+            if(is_null($computer->cpu))
+            {
+                $computer->cpu = '';
+            }
+
+            if(is_null($computer->memory_in_gb))
+            {
+                $computer->memory_in_gb = 0;
+            }
+
+            if(is_null($computer->hard_drive_type))
+            {
+                $computer->hard_drive_type = 0;
+            }
+
+            if(is_null($computer->hard_drive_space_in_gb))
+            {
+                $computer->hard_drive_space_in_gb = 0;
             }
         });
 

@@ -47,6 +47,13 @@
         </div>
 
         <div class="col-span-6 sm:col-span-4">
+            <div class="flex items-center">
+                <x-jet-checkbox id="use_donor_information" name="use_donor_information" value="1" class="mr-2" wire:model.defer="state.use_donor_information" :disabled="! Gate::check('update', $team)" />
+                <x-jet-label for="use_donor_information" value="Informationen über Spender pflegen" />
+            </div>
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="notfification_email" value="Zulip Stream E-Mail-Adresse" />
 
             <x-jet-input id="notfification_email"
@@ -59,10 +66,10 @@
         </div>
 
         <div class="col-span-6 sm:col-span-4">
-        <div class="flex items-center">
-            <x-jet-checkbox id="notfification_on_computer_created" name="notfification_on_computer_created" value="1" class="mr-2" wire:model.defer="state.notfification_on_computer_created" :disabled="! Gate::check('update', $team)" />
-            <x-jet-label for="notfification_on_computer_created" value="Benachrichtigung für neue Computer" />
-        </div>
+            <div class="flex items-center">
+                <x-jet-checkbox id="notfification_on_computer_created" name="notfification_on_computer_created" value="1" class="mr-2" wire:model.defer="state.notfification_on_computer_created" :disabled="! Gate::check('update', $team)" />
+                <x-jet-label for="notfification_on_computer_created" value="Benachrichtigung für neue Computer" />
+            </div>
         </div>
     </x-slot>
 

@@ -12,6 +12,8 @@
                     @csrf
                     @method('PUT')
                     <div class="shadow overflow-hidden sm:rounded-md">
+                    
+                        @if (Auth::user()->currentTeam->use_donor_information)
                         <div class="grid grid-cols-1 sm:grid-cols-2">
                             <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                                 <label for="donor" class="block font-medium text-sm text-gray-700">Spender</label>
@@ -29,28 +31,7 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2">
-                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
-                                <label class="inline-flex items-center">
-                                    <input type="checkbox" name="is_deletion_required" id="is_deletion_required" class="form-checkbox rounded-md" value="1" @if(old('is_deletion_required',$computer->is_deletion_required)=="1") checked @endif />
-                                    <span class="ml-2">Professionelle Löschung gewünscht</span>
-                                </label>
-                                @error('is_deletion_required')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
-                                <label class="inline-flex items-center">
-                                    <input type="checkbox" name="needs_donation_receipt" id="needs_donation_receipt" class="form-checkbox rounded-md" value="1" @if(old('needs_donation_receipt',$computer->needs_donation_receipt)=="1") checked @endif />
-                                    <span class="ml-2">Spendenquittung gewünscht</span>
-                                </label>
-                                @error('needs_donation_receipt')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
+                        @endif
 
                         <div class="grid grid-cols-1 sm:grid-cols-2">
                             <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
@@ -59,6 +40,8 @@
                                     <option value="0" {{ (old('roles', $computer->type) == '0') ? ' selected' : '' }}>Unbekannt</option>
                                     <option value="1" {{ (old('roles', $computer->type) == '1') ? ' selected' : '' }}>Desktop</option>
                                     <option value="2" {{ (old('roles', $computer->type) == '2') ? ' selected' : '' }}>Laptop</option>
+                                    <option value="3" {{ (old('roles', $computer->type) == '3') ? ' selected' : '' }}>Tablet</option>
+                                    <option value="4" {{ (old('roles', $computer->type) == '4') ? ' selected' : '' }}>Small Form Factor</option>
                                 </select>
                                 @error('type')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
@@ -124,6 +107,68 @@
                             @error('comment')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="is_deletion_required" id="is_deletion_required" class="form-checkbox rounded-md" value="1" @if(old('is_deletion_required',$computer->is_deletion_required)=="1") checked @endif />
+                                    <span class="ml-2">Professionelle Löschung gewünscht</span>
+                                </label>
+                                @error('is_deletion_required')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="needs_donation_receipt" id="needs_donation_receipt" class="form-checkbox rounded-md" value="1" @if(old('needs_donation_receipt',$computer->needs_donation_receipt)=="1") checked @endif />
+                                    <span class="ml-2">Spendenquittung gewünscht</span>
+                                </label>
+                                @error('needs_donation_receipt')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="cpu" class="block font-medium text-sm text-gray-700">CPU Modell</label>
+                                <input type="text" name="cpu" id="cpu" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('cpu', $computer->cpu) }}" placeholder="Unbekannt" />
+                                @error('cpu')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="memory_in_gb" class="block font-medium text-sm text-gray-700">Arbeitsspeicher in GB</label>
+                                <input type="text" name="memory_in_gb" id="memory_in_gb" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('memory_in_gb', $computer->memory_in_gb) }}" />
+                                @error('memory_in_gb')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="required_equipment" class="block font-medium text-sm text-gray-700">Festplattentyp</label>
+                                <select name="hard_drive_type" id="hard_drive_type" class="form-singleselect block rounded-md shadow-sm mt-1 block w-full">
+                                    <option value="0" {{ (old('roles', $computer->hard_drive_type) == 0) ? ' selected' : '' }}>Unbekannt</option>
+                                    <option value="1" {{ (old('roles', $computer->hard_drive_type) == 1) ? ' selected' : '' }}>HDD</option>
+                                    <option value="2" {{ (old('roles', $computer->hard_drive_type) == 2) ? ' selected' : '' }}>SSD</option>
+                                </select>
+                                @error('required_equipment')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <label for="hard_drive_space_in_gb" class="block font-medium text-sm text-gray-700">Festplattengröße in GB</label>
+                                <input type="text" name="hard_drive_space_in_gb" id="hard_drive_space_in_gb" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('hard_drive_space_in_gb', $computer->hard_drive_space_in_gb) }}" />
+                                @error('hard_drive_space_in_gb')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">

@@ -94,9 +94,14 @@ class ComputerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('computers.create');
+        return view('computers.create')
+                ->with('cpu', $request->input("cpu"))
+                ->with('memory_in_gb', $request->input("memory_in_gb"))
+                ->with('hard_drive_type', $request->input("hard_drive_type"))
+                ->with('hard_drive_space_in_gb', $request->input("hard_drive_space_in_gb"))
+            ;
     }
 
     /**
@@ -118,7 +123,7 @@ class ComputerController extends Controller
      * @param  \App\Models\Computer $computer
      * @return \Illuminate\Http\Response
      */
-    public function show(Computer $computer)
+    public function show(Request $request, Computer $computer)
     {
         return view('computers.show', compact('computer'));
     }
@@ -131,6 +136,40 @@ class ComputerController extends Controller
      */
     public function edit(Computer $computer)
     {
+        return view('computers.edit', compact('computer'));
+    }
+
+    public function edit2(Request $request, $location, $number)
+    {
+        $user = Auth::user();
+
+        $team = Team::where('abbreviation', 'HA-' . $location)->first();
+
+        if(is_null($team))
+        {
+            abort(404, 'Unkown team');
+        }
+
+        if($team->id != $user->currentTeam->id)
+        {
+            abort(403, 'Unauthorized');
+        }
+ 
+        $computer = Computer::where('team_id', $team->id)->where('number', $number)->first();
+
+        if(is_null($computer))
+        {
+            abort(404, 'Unkown computer');
+        }
+
+        if($request->has("model") && strlen($request->input("model") > 0)) $computer->model = $request->input("model");
+        if($request->has("cpu")) $computer->cpu = $request->input("cpu");
+        if($request->has("memory_in_gb"))  $computer->memory_in_gb = $request->input("memory_in_gb");
+        if($request->has("hard_drive_type")) $computer->hard_drive_type = $request->input("hard_drive_type");
+        if($request->has("hard_drive_space_in_gb")) $computer->hard_drive_space_in_gb = $request->input("hard_drive_space_in_gb");
+        if($request->has("type_name") && $request->input("type_name") == 'desktop') $computer->type = 1;
+        if($request->has("type_name") && $request->input("type_name") == 'laptop') $computer->type = 2;
+        
         return view('computers.edit', compact('computer'));
     }
 
@@ -151,21 +190,6 @@ class ComputerController extends Controller
         $computer->update($request->all());
 
         return view('computers.show', compact('computer'));
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Computer $computer
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $computer = Computer::find($id);
-
-        $computer->delete();
-
-        return redirect()->route('computers.index')->with('message', 'Der Eintrag wurde gelöscht.');
     }
 
     public function display($location, $number)

@@ -21,7 +21,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="block mb-8">
-                <a href="{{ route('computers.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-block">Computer hinzufügen</a>
+                <a href="{{ route('computers.create') }}" class="inline-flex items-center justify-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-600 disabled:opacity-25 transition inline-block">Computer hinzufügen</a>
                     <form action="{{ route('computers.index') }}" method="GET" role="search" class="mx-auto float-right inline-block">
                             <div class="input-group">
                                 <input type="text" class="form-control mr-2 pr-24 py-2 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring" name="search" placeholder="Computer durchsuchen.." id="search" value="{{ request()->query('search') }}">
@@ -35,7 +35,7 @@
                                     </span>
                                 </a>
                             </div>
-                    </form>
+                    </form>              
             </div>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
 
@@ -52,9 +52,11 @@
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Benötigtes Zubehör
                                             </th>
+                                            @if (Auth::user()->currentTeam->use_donor_information)
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Spender
                                             </th>
+                                            @endif
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Status
                                             </th>
@@ -76,6 +78,10 @@
                                                     <i class="fas fa-desktop" title="Desktop"></i>
                                                     @elseif ($computer->type == 2)
                                                     <i class="fas fa-laptop" title="Laptop"></i>
+                                                    @elseif ($computer->type == 3)
+                                                    <i class="fas fa-tablet-alt" title="Tablet"></i>
+                                                    @elseif ($computer->type == 4)
+                                                    <i class="fas fa-hdd" title="Small Form Factor"></i>
                                                     @endif
                                                     <div class="ml-4">
                                                         <div class="text-sm font-medium text-gray-900">
@@ -105,10 +111,12 @@
                                                     @endif
                                                 </div>
                                             </td>
+                                            @if (Auth::user()->currentTeam->use_donor_information)
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm text-gray-900">{{ $computer->donor ?? 'Unbekannt' }}</div>
                                                 <div class="text-sm text-gray-500">{{ $computer->email ?? '' }}</div>
                                             </td>
+                                            @endif
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 @if ($computer->state == 'new')
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
@@ -168,4 +176,3 @@
 
     </script>
 </x-app-layout>
-
