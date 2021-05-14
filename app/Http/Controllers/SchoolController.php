@@ -17,11 +17,7 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-
-        $schools = School::with('team')->where('team_id', $user->currentTeam->id)->orderBy('name','asc')->get();
-
-        return view('schools.index', compact('schools'));
+        return view('schools.index');
     }
 
     /**
@@ -81,5 +77,43 @@ class SchoolController extends Controller
         $school->update($request->all());
 
         return view('schools.show', compact('school'));
+    }
+
+    public function search(Request $request)
+    {
+
+        $user = Auth::user();
+
+        $query = $request->searchTerm;
+
+
+        if ($request->ajax()) {
+
+            if ($query != '') {
+
+                $schools = School::with('team')->where(function ($q) use ($query) {
+
+
+                    $columns = ['name', 'type', 'zip', 'city', 'street', 'phone'];
+
+                    foreach ($columns as $column) {
+                        $q->orWhere($column, 'LIKE', '%' . $query . '%');
+
+                    }
+
+
+                })
+                    ->where('team_id', $user->currentTeam->id)
+                    ->orderBy('name','asc')
+                    ->get();
+
+
+            } else {
+
+                $schools = School::with('team')->where('team_id', $user->currentTeam->id)->orderBy('name','asc')->get();
+
+            }
+            return view('schools.table', compact('schools'));
+        }
     }
 }

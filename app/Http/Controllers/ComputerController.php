@@ -19,11 +19,8 @@ class ComputerController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        return view('computers.index');
 
-        $computers = Computer::with('team')->where('team_id', $user->currentTeam->id)->orderBy('id','desc')->get();
-
-        return view('computers.index', compact('computers'));
     }
 
     /**
@@ -91,7 +88,7 @@ class ComputerController extends Controller
         {
             abort(403, 'Unauthorized');
         }
- 
+
         $computer = Computer::where('team_id', $team->id)->where('number', $number)->first();
 
         if(is_null($computer))
@@ -106,7 +103,7 @@ class ComputerController extends Controller
         if($request->has("hard_drive_space_in_gb")) $computer->hard_drive_space_in_gb = $request->input("hard_drive_space_in_gb");
         if($request->has("type_name") && $request->input("type_name") == 'desktop') $computer->type = 1;
         if($request->has("type_name") && $request->input("type_name") == 'laptop') $computer->type = 2;
-        
+
         return view('computers.edit', compact('computer'));
     }
 
@@ -152,5 +149,42 @@ class ComputerController extends Controller
             ->with('computer', $computer)
             ->with('location', $location)
             ->with('number', $number);
+    }
+
+    public function search(Request $request)
+    {
+
+        $user = Auth::user();
+
+        $query = $request->searchTerm;
+
+
+        if ($request->ajax()) {
+
+            if ($query != '') {
+
+                $computers = Computer::with('team')->where(function ($q) use ($query) {
+
+
+                    $columns = ['donor', 'model', 'email', 'cpu', 'required_equipment', 'comment'];
+
+                    foreach ($columns as $column) {
+                        $q->orWhere($column, 'LIKE', '%' . $query . '%');
+
+                    }
+
+
+                })
+                    ->where('team_id', $user->currentTeam->id)
+                    ->orderBy('id', 'desc')
+                    ->get();
+
+
+            } else {
+
+                $computers = Computer::with('team')->where('team_id', $user->currentTeam->id)->orderBy('id', 'desc')->get();
+            }
+            return view('computers.table', compact('computers'));
+        }
     }
 }
