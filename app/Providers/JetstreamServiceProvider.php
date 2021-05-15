@@ -9,6 +9,8 @@ use App\Actions\Jetstream\DeleteUser;
 use App\Actions\Jetstream\InviteTeamMember;
 use App\Actions\Jetstream\RemoveTeamMember;
 use App\Actions\Jetstream\UpdateTeam;
+use App\Http\Livewire\DeleteComputer;
+use App\Http\Livewire\DeleteSchool;
 use App\Http\Livewire\UpdateTeamForm;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
@@ -32,6 +34,8 @@ class JetstreamServiceProvider extends ServiceProvider
 
         $this->app->afterResolving(BladeCompiler::class, function () {
             if (config('jetstream.stack') === 'livewire' && class_exists(Livewire::class)) {
+                Livewire::component('computers.delete', DeleteComputer::class);
+                Livewire::component('schools.delete', DeleteSchool::class);
 
                 if (Features::hasTeamFeatures()) {
                     Livewire::component('teams.update-team-form', UpdateTeamForm::class);
