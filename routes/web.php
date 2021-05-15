@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ComputerController;
+use App\Http\Controllers\ConsignmentController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\InquiryController;
 
@@ -32,4 +33,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/computers/HA-{location}-{number}/edit', [ComputerController::class, 'edit2'])->where('location', '[A-Za-z]+')->where('number', '[0-9]+');
     Route::resource('/computers', ComputerController::class);
     Route::resource('/schools', SchoolController::class);
+    Route::get('/consignments/created', [ConsignmentController::class, 'created'])->name('consignments.created');
+    Route::resource('/consignments', ConsignmentController::class);
 });
