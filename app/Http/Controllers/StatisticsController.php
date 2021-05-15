@@ -31,8 +31,9 @@ class StatisticsController extends Controller
                 SUM(TYPE=4) AS sum_type_small_form_factor,
                 COUNT(*) AS sum_total
             FROM computers
-            WHERE team_id=?
-            GROUP BY state;',
+            WHERE team_id = ?
+            GROUP BY state
+            ORDER BY state;',
             [$user->currentTeam->id]
         );
 
@@ -63,8 +64,10 @@ class StatisticsController extends Controller
                 SUM(TYPE=4) AS sum_type_small_form_factor,
                 COUNT(*) AS sum_total
             FROM computers
-            WHERE team_id = 5 AND state = 'refurbished'
-            GROUP BY has_webcam, has_wlan");
+            WHERE team_id = ? AND state = 'refurbished'
+            GROUP BY has_webcam, has_wlan",
+            [$user->currentTeam->id]
+        );
 
         $deliverable_totals = array();
         $deliverable_totals['type_unkown'] = 0;

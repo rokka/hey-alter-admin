@@ -36,7 +36,7 @@
 
                         <div class="ml-12">
                             <div class="mt-2 text-sm text-gray-500">
-                                In diesem Bereich können alle Computer über den gesamten Prozess von der Annahme über die Aufbereitung bis hinzu Abgabe verwalten werden.
+                                In diesem Bereich können alle Computer über den gesamten Prozess von der Annahme über die Aufbereitung bis hin zur Abgabe verwalten werden.
                             </div>
 
                             <!--
@@ -91,7 +91,7 @@
 
                         <div class="ml-12">
                             <div class="mt-2 text-sm text-gray-500">
-                                ...
+                                In diesem Bereich gibt es Statistiken über den Status der Computer.
                             </div>
                         </div>
                     </div>
