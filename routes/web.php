@@ -6,6 +6,7 @@ use App\Http\Controllers\ComputerController;
 use App\Http\Controllers\ConsignmentController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\StatisticsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/schools', SchoolController::class);
     Route::get('/consignments/created', [ConsignmentController::class, 'created'])->name('consignments.created');
     Route::resource('/consignments', ConsignmentController::class);
+    Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
 });
