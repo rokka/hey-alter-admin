@@ -22,7 +22,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="block mb-8">
                 <a href="{{ route('computers.create') }}" class="inline-flex items-center justify-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-600 disabled:opacity-25 transition inline-block">Computer hinzufügen</a>
-                <a href="{{ route('consignments.create') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded inline-block float-right">Einlieferungsprotokoll</a>
+                <a href="{{ route('consignments.create') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-semibold text-xs text-white uppercase tracking-widest py-2 px-4 rounded inline-block float-right">Einlieferungsprotokoll</a>
             </div>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="flex flex-col">
