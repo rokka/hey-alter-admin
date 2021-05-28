@@ -17,11 +17,15 @@ class ComputerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
-        $computers = Computer::with('team')->where('team_id', $user->currentTeam->id)->orderBy('id','desc')->get();
+        $computers = Computer::with('team')
+            ->where('team_id', $user->currentTeam->id)
+            ->where('type', 'like', ($request->has('type') ? $request->input('type') : '%'))
+            ->where('state', 'like', ($request->has('state') ? $request->input('state') : '%'))
+            ->orderBy('id','desc')->get();
 
         return view('computers.index', compact('computers'));
     }

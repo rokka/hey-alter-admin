@@ -92,6 +92,7 @@
                                 <option value="new" {{ old('state', '') ? ' selected' : '' }}>{{ __('xcomputer.state_new') }}</option>
                                 <option value="in_progress" {{ (old('state', '') == 'in_progress') ? ' selected' : '' }}>{{ __('xcomputer.state_in_progress') }}</option>
                                 <option value="refurbished" {{ (old('state', '') == 'refurbished') ? ' selected' : '' }}>{{ __('xcomputer.state_refurbished') }}</option>
+                                <option value="picked" {{ (old('state', '') == 'picked') ? ' selected' : '' }}>{{ __('xcomputer.state_picked') }}</option>
                                 <option value="delivered" {{ (old('state', '') == 'delivered') ? ' selected' : '' }}>{{ __('xcomputer.state_delivered') }}</option>
                                 <option value="destroyed" {{ (old('state', '') == 'destroyed') ? ' selected' : '' }}>{{ __('xcomputer.state_destroyed') }}</option>
                             </select>

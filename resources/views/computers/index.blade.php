@@ -116,6 +116,10 @@
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                                                     {{ __('xcomputer.state_' . $computer->state) }}
                                                 </span>
+                                                @elseif ($computer->state == 'picked')
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-pink-100 text-pink-800">
+                                                    {{ __('xcomputer.state_' . $computer->state) }}
+                                                </span>
                                                 @elseif ($computer->state == 'delivered')
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                                     {{ __('xcomputer.state_' . $computer->state) }}
