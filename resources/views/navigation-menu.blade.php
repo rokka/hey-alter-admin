@@ -27,6 +27,11 @@
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('orders.index') }}" :active="request()->routeIs('orders.*')">
+                        Aufträge
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('statistics.index') }}" :active="request()->routeIs('statistics.*')">
                         Statistiken
                     </x-jet-nav-link>
