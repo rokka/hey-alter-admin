@@ -28,7 +28,7 @@
                         
                         <div class="grid grid-cols-1 sm:grid-cols">
                             <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
-                                <label for="user_id" class="block font-medium text-sm text-gray-700">Benutzer</label>
+                                <label for="user_id" class="block font-medium text-sm text-gray-700">Ansprechpartner</label>
                                 <select name="user_id" id="user_id" class="form-singleselect block rounded-md shadow-sm mt-1 block w-full">
                                     @foreach ($users as $user)
                                     <option value="{{ $user->id }}" {{ (old('user_id', $order->user_id) == $user->id) ? ' selected' : '' }}>{{ $user->name }}</option>
