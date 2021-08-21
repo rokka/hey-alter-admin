@@ -74,7 +74,7 @@
                                                             {{ $computer->identifier }}
                                                         </div>
                                                         <div class="text-sm text-gray-500">
-                                                            {{ $computer->model }}
+                                                            {{ \Illuminate\Support\Str::limit($computer->model, 30, $end='...') }}
                                                         </div>
                                                     </div>
                                                     <!--</div>-->
