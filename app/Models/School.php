@@ -33,29 +33,26 @@ class School extends Model
 
                 $school->team_id = $user->currentTeam->id;
             }
-            static::saving(function ($school) {
+            
+            if (is_null($school->type)) {
+                $school->type = '';
+            }
 
-                if (is_null($school->type)) {
-                    $school->type = '';
-                }
+            if (is_null($school->zip)) {
+                $school->zip = '';
+            }
 
-                if (is_null($school->zip)) {
-                    $school->zip = '';
-                }
+            if (is_null($school->city)) {
+                $school->city = '';
+            }
 
-                if (is_null($school->city)) {
-                    $school->city = '';
-                }
+            if (is_null($school->street)) {
+                $school->street = '';
+            }
 
-                if (is_null($school->street)) {
-                    $school->street = '';
-                }
-
-                if (is_null($school->phone)) {
-                    $school->phone = '';
-                }
-
-            });
+            if (is_null($school->phone)) {
+                $school->phone = '';
+            }
         });
     }
 }
