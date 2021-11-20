@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 use App\Models\Team;
 use App\Mail\ComputerCreated;
@@ -105,10 +105,37 @@ class Computer extends Model
             
             $user = Auth::user();
 
+            $zulip_bot_username = env('ZULIP_BOT_USERNAME', '');
+            $zulip_bot_password = env('ZULIP_BOT_PASSWORD', '');
+
             if($user->currentTeam->notfification_on_computer_created &&
-               $user->currentTeam->notfification_email != '')
+               $user->currentTeam->notfification_stream != '' &&
+               $zulip_bot_username != '' &&
+               $zulip_bot_password != '')
             {
-    	        Mail::send(new ComputerCreated($computer));
+                $url = URL::to($computer->identifier);
+                
+                $stream = $user->currentTeam->notfification_stream;
+                $topic = "Computerliste";
+                $message = "Es wurde ein neuer Computer hinzugefügt: {$computer->identifier} ([Details ansehen]({$url}))";
+
+                $ch = curl_init();
+
+                curl_setopt($ch, CURLOPT_URL, 'https://chat.heyalter.com/api/v1/messages');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, "type=stream&to=$stream&subject=$topic&content=$message");
+                curl_setopt($ch, CURLOPT_USERPWD, $zulip_bot_username . ':' . $zulip_bot_password);
+        
+                $headers = array();
+                $headers[] = 'Content-Type: application/x-www-form-urlencoded';
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        
+                $result = curl_exec($ch);
+                if (curl_errno($ch)) {
+                    echo 'Error:' . curl_error($ch);
+                }
+                curl_close($ch);
             }
 	    });
     }

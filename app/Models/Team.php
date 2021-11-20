@@ -29,7 +29,7 @@ class Team extends JetstreamTeam
     protected $fillable = [
         'name',
         'abbreviation',
-        'notfification_email',
+        'notfification_stream',
         'notfification_on_computer_created',
         'use_donor_information',
         'personal_team',

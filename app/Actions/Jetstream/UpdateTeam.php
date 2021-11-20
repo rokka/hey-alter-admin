@@ -23,7 +23,7 @@ class UpdateTeam implements UpdatesTeam
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'abbreviation' => ['required', 'string', 'max:10'],
-            'notfification_email' => ['string', 'email', 'max:255'],
+            'notfification_stream' => ['string', 'max:255'],
             'notfification_on_computer_created' => [ 'boolean' ],
             'use_donor_information' => [ 'boolean' ],
         ])->validateWithBag('updateTeam');
@@ -31,7 +31,7 @@ class UpdateTeam implements UpdatesTeam
         $team->forceFill([
             'name' => $input['name'],
             'abbreviation' => $input['abbreviation'],
-            'notfification_email' => $input['notfification_email'],
+            'notfification_stream' => $input['notfification_stream'],
             'notfification_on_computer_created' => $input['notfification_on_computer_created'],
             'use_donor_information' => $input['use_donor_information'],
         ])->save();
