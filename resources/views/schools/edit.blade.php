@@ -22,7 +22,7 @@
 
                         <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="type" class="block font-medium text-sm text-gray-700">Typ</label>
-                            <input type="text" name="type" id="type" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('type', $school->type) }}" />
+                            <input type="text" name="type" id="type" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('type', $school->type) }}" placeholder="Nicht angegeben" />
                             @error('type')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -30,7 +30,7 @@
 
                         <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="zip" class="block font-medium text-sm text-gray-700">PLZ</label>
-                            <input type="text" name="zip" id="zip" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('zip', $school->zip) }}" />
+                            <input type="text" name="zip" id="zip" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('zip', $school->zip) }}" placeholder="Nicht angegeben" />
                             @error('zip')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -38,7 +38,7 @@
 
                         <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="city" class="block font-medium text-sm text-gray-700">Ort</label>
-                            <input type="text" name="city" id="city" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('city', $school->city) }}" />
+                            <input type="text" name="city" id="city" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('city', $school->city) }}" placeholder="Nicht angegeben" />
                             @error('city')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -46,7 +46,7 @@
 
                         <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                             <label for="street" class="block font-medium text-sm text-gray-700">Straße</label>
-                            <input type="text" name="street" id="street" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('street', $school->street) }}" />
+                            <input type="text" name="street" id="street" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('street', $school->street) }}" placeholder="Nicht angegeben" />
                             @error('street')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
