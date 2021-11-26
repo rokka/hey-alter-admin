@@ -42,6 +42,14 @@
                                 </tr>
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Lehrer
+                                    </th>
+                                    <td class="px-6 py-4 text-sm text-gray-900 bg-white divide-y divide-gray-200">
+                                        {{ $order->teacher }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Computer
                                     </th>
                                     <td class="px-6 py-4 text-sm text-gray-900 bg-white divide-y divide-gray-200">
@@ -74,4 +82,118 @@
             </div>
         </div>
     </div>
+
+    @if ($order->desktop_count > 0)
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="flex flex-col">
+                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Desktop (Soll: {{ $order->desktop_count }} Ist: {{ count($order->desktops) }})
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Benötigtes Zubehör
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Status
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Kommentar
+                                            </th>
+                                            <th scope="col">
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    @foreach ($order->desktops as $computer)
+                                        <tr class="clickable-row hover:bg-gray-100 cursor-pointer" data-url="{{ route('computers.show', $computer->id) }}">
+                                            <td class="px-4 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    @if ($computer->type == 1)
+                                                    <i class="fas fa-desktop" title="Desktop"></i>
+                                                    @elseif ($computer->type == 2)
+                                                    <i class="fas fa-laptop" title="Laptop"></i>
+                                                    @elseif ($computer->type == 3)
+                                                    <i class="fas fa-tablet-alt" title="Tablet"></i>
+                                                    @elseif ($computer->type == 4)
+                                                    <i class="fas fa-hdd" title="Small Form Factor"></i>
+                                                    @endif
+                                                    <div class="ml-4">
+                                                        <div class="text-sm font-medium text-gray-900">
+                                                            {{ $computer->identifier }}
+                                                        </div>
+                                                        <div class="text-sm text-gray-500">
+                                                            {{ $computer->model }}
+                                                        </div>
+                                                    </div>
+                                                    <!--</div>-->
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm font-medium text-gray-900">
+                                                    @if ($computer->has_webcam == 0)
+                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                        Web-Cam
+                                                    </span>
+                                                    @endif
+                                                    @if ($computer->has_wlan == 0)
+                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                        WLAN
+                                                    </span>
+                                                    @endif
+                                                    {{ $computer->required_equipment }}
+                                                    @if ($computer->has_webcam == 1 && $computer->has_wlan == 1 && empty($computer->required_equipment))
+                                                    -
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                @if ($computer->state == 'new')
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                                    {{ __('xcomputer.state_' . $computer->state) }}
+                                                </span>
+                                                @elseif ($computer->state == 'in_progress')
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                    {{ __('xcomputer.state_' . $computer->state) }}
+                                                </span>
+                                                @elseif ($computer->state == 'destroyed')
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                    {{ __('xcomputer.state_' . $computer->state) }}
+                                                </span>
+                                                @elseif ($computer->state == 'picked')
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-pink-100 text-pink-800">
+                                                    {{ __('xcomputer.state_' . $computer->state) }}
+                                                </span>
+                                                @elseif ($computer->state == 'delivered')
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                                    {{ __('xcomputer.state_' . $computer->state) }}
+                                                </span>
+                                                @else
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    {{ __('xcomputer.state_' . $computer->state) }}
+                                                </span>
+                                                @endif
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <div class="text-sm text-gray-900">{!! nl2br(e($computer->comment)) !!}</div>
+                                            </td>
+                                            <td scope="col">
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @endif
+    
 </x-app-layout>

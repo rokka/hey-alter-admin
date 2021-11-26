@@ -40,6 +40,14 @@
                             </div>
                         </div>
 
+                        <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                            <label for="teacher" class="block font-medium text-sm text-gray-700">Lehrer</label>
+                            <input type="text" name="teacher" id="teacher" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('teacher', $order->teacher) }}" />
+                            @error('teacher')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <div class="grid grid-cols-1 sm:grid-cols-4">
                             <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                                 <label class="block font-medium text-sm text-gray-700">Desktops</label>

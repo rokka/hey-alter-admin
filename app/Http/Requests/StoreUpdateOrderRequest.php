@@ -15,6 +15,7 @@ class StoreUpdateOrderRequest extends FormRequest
             'laptop_count' => ['required', 'int' ],
             'tablet_count' => ['required', 'int' ],
             'sff_count' => ['required', 'int' ],
+            'teacher' => [ 'nullable' ],
             'comment' => [ 'nullable' ],
         ];
     }

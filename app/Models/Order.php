@@ -17,6 +17,7 @@ class Order extends Model
         'laptop_count',
         'tablet_count',
         'sff_count',
+        'teacher',
         'comment',
     ];
 
@@ -35,6 +36,36 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function computers()
+    {
+        return $this->hasManyThrough(Computer::class, Position::class);
+    }
+
+    public function desktops()
+    {
+        return $this->hasManyThrough(Computer::class, Position::class)->where('type', 1);
+    }
+
+    public function laptops()
+    {
+        return $this->hasManyThrough(Computer::class, Position::class)->where('type', 2);
+    }
+
+    public function tablets()
+    {
+        return $this->hasManyThrough(Computer::class, Position::class)->where('type', 3);
+    }
+
+    public function small_form_factors()
+    {
+        return $this->hasManyThrough(Computer::class, Position::class)->where('type', 4);
+    }
+
+    public function unkonwn_types()
+    {
+        return $this->hasManyThrough(Computer::class, Position::class)->where('type', 0);
+    }
+
     protected static function booted()
     {
         static::saving(function ($order) {
@@ -51,6 +82,11 @@ class Order extends Model
             if(is_null($order->comment))
             {
                 $order->comment = '';
+            }
+
+            if(is_null($order->teacher))
+            {
+                $order->teacher = '';
             }
         });
     }
