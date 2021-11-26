@@ -17,6 +17,7 @@ class School extends Model
         'city',
         'street',
         'phone',
+        'contact_person',
     ];
 
     public function team()
@@ -52,6 +53,10 @@ class School extends Model
 
             if (is_null($school->phone)) {
                 $school->phone = '';
+            }
+
+            if (is_null($school->contact_person)) {
+                $school->contact_person = '';
             }
         });
     }

@@ -33,6 +33,9 @@
                                 Typ
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Kontaktperson
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Telefonnummer
                             </th>
                             <th scope="col" class="relative px-6 py-3">
@@ -64,6 +67,9 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ $school->phone }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">{{ $school->contact_person }}</div>
                             </td>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">

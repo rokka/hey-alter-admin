@@ -14,7 +14,8 @@ class StoreSchoolRequest extends FormRequest
             'zip' => ['nullable', 'string' ],
             'city' => [ 'nullable', 'string' ],
             'street' => ['nullable', 'string' ],
-            'phone' => [ 'nullable', 'string' ]
+            'phone' => [ 'nullable', 'string' ],
+            'contact_person' => [ 'nullable', 'string' ]
         ];
     }
 

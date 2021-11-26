@@ -11,10 +11,11 @@ class UpdateSchoolRequest extends FormRequest
         return [
             'name' => ['nullable', 'string' ],
             'type' => ['nullable', 'string' ],
-            'zip' => ['nullable', 'integer' ],
+            'zip' => ['nullable', 'string' ],
             'city' => [ 'nullable', 'string' ],
             'street' => ['nullable', 'string' ],
-            'phone' => [ 'nullable', 'integer' ]
+            'phone' => [ 'nullable', 'string' ],
+            'contact_person' => [ 'nullable', 'string' ],
         ];
     }
 
