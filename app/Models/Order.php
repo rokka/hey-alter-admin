@@ -18,6 +18,7 @@ class Order extends Model
         'tablet_count',
         'sff_count',
         'teacher',
+        'state',
         'comment',
     ];
 
