@@ -6,8 +6,8 @@
         </h2>
     </x-slot>
     
-    <div>
-        <div class="max-w-7xl mx-auto pt-10 sm:px-6 lg:px-8">
+    <div class="pt-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mt-5 md:mt-0 md:col-span-2">
                 <form method="post" action="{{ route('distributions.store') }}">
                     @csrf
