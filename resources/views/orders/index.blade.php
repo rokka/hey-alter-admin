@@ -94,7 +94,7 @@
                                 </td>
                             </tr>
                             @endforeach
-                            <tr class="clickable-row hover:bg-gray-100 cursor-pointer" data-url="{{ route('orders.show', $order->id) }}">
+                            <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900"></div>
                                 </td>
