@@ -94,7 +94,7 @@ class SchoolController extends Controller
                 $schools = School::with('team')->where(function ($q) use ($query) {
 
 
-                    $columns = ['name', 'type', 'zip', 'city', 'street', 'phone'];
+                    $columns = ['name', 'type', 'zip', 'city', 'street', 'phone', 'contact_person'];
 
                     foreach ($columns as $column) {
                         $q->orWhere($column, 'LIKE', '%' . $query . '%');

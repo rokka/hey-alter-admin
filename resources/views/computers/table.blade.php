@@ -43,23 +43,22 @@
                             {{ $computer->identifier }}
                         </div>
                         <div class="text-sm text-gray-500">
-                            {{ $computer->model }}
+                            {{ \Illuminate\Support\Str::limit($computer->model, 30, $end='...') }}
                         </div>
                     </div>
                     <!--</div>-->
-                </div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
                 <div class="text-sm font-medium text-gray-900">
                     @if ($computer->has_webcam == 0)
                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                                            Web-Cam
-                                                        </span>
+                                                        Web-Cam
+                                                    </span>
                     @endif
                     @if ($computer->has_wlan == 0)
                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                                            WLAN
-                                                        </span>
+                                                        WLAN
+                                                    </span>
                     @endif
                     {{ $computer->required_equipment }}
                     @if ($computer->has_webcam == 1 && $computer->has_wlan == 1 && empty($computer->required_equipment))
@@ -76,24 +75,28 @@
             <td class="px-6 py-4 whitespace-nowrap">
                 @if ($computer->state == 'new')
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-                                                        {{ __('xcomputer.state_' . $computer->state) }}
-                                                    </span>
+                                                    {{ __('xcomputer.state_' . $computer->state) }}
+                                                </span>
                 @elseif ($computer->state == 'in_progress')
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                                        {{ __('xcomputer.state_' . $computer->state) }}
-                                                    </span>
+                                                    {{ __('xcomputer.state_' . $computer->state) }}
+                                                </span>
                 @elseif ($computer->state == 'destroyed')
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                                        {{ __('xcomputer.state_' . $computer->state) }}
-                                                    </span>
+                                                    {{ __('xcomputer.state_' . $computer->state) }}
+                                                </span>
+                @elseif ($computer->state == 'picked')
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-pink-100 text-pink-800">
+                                                    {{ __('xcomputer.state_' . $computer->state) }}
+                                                </span>
                 @elseif ($computer->state == 'delivered')
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                                        {{ __('xcomputer.state_' . $computer->state) }}
-                                                    </span>
+                                                    {{ __('xcomputer.state_' . $computer->state) }}
+                                                </span>
                 @else
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                        {{ __('xcomputer.state_' . $computer->state) }}
-                                                    </span>
+                                                    {{ __('xcomputer.state_' . $computer->state) }}
+                                                </span>
                 @endif
             </td>
             <td class="px-6 py-4">
