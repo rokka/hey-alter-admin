@@ -11,7 +11,7 @@
                 <form method="post" action="{{ route('computers.store') }}">
                     @csrf
                     <div class="shadow overflow-hidden sm:rounded-md">
-                    
+
                         @if (Auth::user()->currentTeam->use_donor_information)
                         <div class="grid grid-cols-1 sm:grid-cols-2">
                             <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
@@ -92,6 +92,7 @@
                                 <option value="new" {{ old('state', '') ? ' selected' : '' }}>{{ __('xcomputer.state_new') }}</option>
                                 <option value="in_progress" {{ (old('state', '') == 'in_progress') ? ' selected' : '' }}>{{ __('xcomputer.state_in_progress') }}</option>
                                 <option value="refurbished" {{ (old('state', '') == 'refurbished') ? ' selected' : '' }}>{{ __('xcomputer.state_refurbished') }}</option>
+                                <option value="picked" {{ (old('state', '') == 'picked') ? ' selected' : '' }}>{{ __('xcomputer.state_picked') }}</option>
                                 <option value="delivered" {{ (old('state', '') == 'delivered') ? ' selected' : '' }}>{{ __('xcomputer.state_delivered') }}</option>
                                 <option value="destroyed" {{ (old('state', '') == 'destroyed') ? ' selected' : '' }}>{{ __('xcomputer.state_destroyed') }}</option>
                             </select>
@@ -108,7 +109,8 @@
                             @enderror
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2">
+                        <div class="grid grid-cols-1 sm:grid-cols-1">
+                        <!--<div class="grid grid-cols-1 sm:grid-cols-2">-->
                             <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                                 <label class="inline-flex items-center">
                                     <input type="checkbox" name="is_deletion_required" id="is_deletion_required" class="form-checkbox rounded-md" value="1" />
@@ -119,6 +121,7 @@
                                 @enderror
                             </div>
 
+                            <!--
                             <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                                 <label class="inline-flex items-center">
                                     <input type="checkbox" name="needs_donation_receipt" id="needs_donation_receipt" class="form-checkbox rounded-md" value="1" />
@@ -128,6 +131,7 @@
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
+                            -->
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2">
@@ -147,7 +151,7 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <div class="grid grid-cols-1 sm:grid-cols-2">
                             <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                                 <label for="hard_drive_type" class="block font-medium text-sm text-gray-700">Festplattentyp</label>
@@ -166,6 +170,23 @@
                                 <label for="hard_drive_space_in_gb" class="block font-medium text-sm text-gray-700">Festplattengröße in GB</label>
                                 <input type="text" name="hard_drive_space_in_gb" id="hard_drive_space_in_gb" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('hard_drive_space_in_gb', $hard_drive_space_in_gb) }}" placeholder="Unbekannt" />
                                 @error('hard_drive_space_in_gb')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-1">
+                            <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
+                                <span class="block font-medium text-sm text-gray-700">Videoausgang</span>
+                                <input type="checkbox" name="has_vga_videoport" id="has_vga_videoport" class="form-checkbox rounded-md" value="1" @if(old('has_vga_videoport',$has_vga_videoport)=="1") checked @endif />
+                                <label for="has_vga_videoport" class="mr-3">VGA</label>
+                                <input type="checkbox" name="has_dvi_videoport" id="has_dvi_videoport" class="form-checkbox rounded-md" value="1" @if(old('has_dvi_videoport',$has_dvi_videoport)=="1") checked @endif />
+                                <label for="has_dvi_videoport" class="mr-3">DVI</label>
+                                <input type="checkbox" name="has_hdmi_videoport" id="has_hdmi_videoport" class="form-checkbox rounded-md" value="1" @if(old('has_hdmi_videoport',$has_hdmi_videoport)=="1") checked @endif />
+                                <label for="has_hdmi_videoport" class="mr-3">HDMI</label>
+                                <input type="checkbox" name="has_displayport_videoport" id="has_displayport_videoport" class="form-checkbox rounded-md" value="1" @if(old('has_displayport_videoport',$has_displayport_videoport)=="1") checked @endif />
+                                <label for="has_displayport_videoport" class="mr-3">DisplayPort</label>
+                                @error('required_equipment')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>

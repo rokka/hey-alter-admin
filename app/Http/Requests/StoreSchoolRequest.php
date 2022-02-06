@@ -9,12 +9,13 @@ class StoreSchoolRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['nullable', 'string' ],
+            'name' => ['string' ],
             'type' => ['nullable', 'string' ],
             'zip' => ['nullable', 'string' ],
             'city' => [ 'nullable', 'string' ],
             'street' => ['nullable', 'string' ],
-            'phone' => [ 'nullable', 'string' ]
+            'phone' => [ 'nullable', 'string' ],
+            'contact_person' => [ 'nullable', 'string' ]
         ];
     }
 

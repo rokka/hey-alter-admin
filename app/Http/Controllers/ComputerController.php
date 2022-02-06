@@ -17,10 +17,17 @@ class ComputerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('computers.index');
+        $user = Auth::user();
 
+        $computers = Computer::with('team')
+            ->where('team_id', $user->currentTeam->id)
+            ->where('type', 'like', ($request->has('type') ? $request->input('type') : '%'))
+            ->where('state', 'like', ($request->has('state') ? $request->input('state') : '%'))
+            ->orderBy('id','desc')->get();
+
+        return view('computers.index', compact('computers'));
     }
 
     /**
@@ -35,6 +42,10 @@ class ComputerController extends Controller
                 ->with('memory_in_gb', $request->input("memory_in_gb"))
                 ->with('hard_drive_type', $request->input("hard_drive_type"))
                 ->with('hard_drive_space_in_gb', $request->input("hard_drive_space_in_gb"))
+                ->with('has_vga_videoport', $request->input("has_vga_videoport"))
+                ->with('has_dvi_videoport', $request->input("has_dvi_videoport"))
+                ->with('has_hdmi_videoport', $request->input("has_hdmi_videoport"))
+                ->with('has_displayport_videoport', $request->input("has_displayport_videoport"))
             ;
     }
 
@@ -120,6 +131,10 @@ class ComputerController extends Controller
         $computer->needs_donation_receipt = $request->has('needs_donation_receipt');
         $computer->has_webcam = $request->has('has_webcam');
         $computer->has_wlan = $request->has('has_wlan');
+        $computer->has_vga_videoport = $request->has('has_vga_videoport');
+        $computer->has_dvi_videoport = $request->has('has_dvi_videoport');
+        $computer->has_hdmi_videoport = $request->has('has_hdmi_videoport');
+        $computer->has_displayport_videoport = $request->has('has_displayport_videoport');
 
         $computer->update($request->all());
 

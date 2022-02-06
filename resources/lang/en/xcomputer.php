@@ -7,5 +7,6 @@ return [
     'state_refurbished' => 'Refurbished',
     'state_in_progress' => '>In progress',
     'state_destroyed' => 'Destroyed',
+    'state_picked' => 'Picked',
 
 ];

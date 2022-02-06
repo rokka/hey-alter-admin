@@ -3,8 +3,12 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ComputerController;
+use App\Http\Controllers\ConsignmentController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\StatisticsController;
+use App\Http\Controllers\DistributionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/schools/table', 'App\Http\Controllers\SchoolController@search')->name('schools.table');
     Route::resource('/computers', ComputerController::class);
     Route::resource('/schools', SchoolController::class);
+    Route::resource('/orders', OrderController::class);
+    Route::get('/consignments/created', [ConsignmentController::class, 'created'])->name('consignments.created');
+    Route::resource('/consignments', ConsignmentController::class);
+    Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
+    Route::resource('/distributions', DistributionController::class);
 });

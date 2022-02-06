@@ -16,34 +16,36 @@
             @csrf
 
             <div>
-                <x-jet-label for="email" value="{{ __('Email') }}" />
+                <x-jet-label for="email" value="E-Mail-Adresse" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
+                <x-jet-label for="password" value="Passwort" />
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
-            <div class="flex justify-between mt-6">
+            <div class="flex justify-between mt-4">
                 <label for="remember_me" class="flex items-center">
                     <x-jet-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                    <span class="ml-2 text-sm text-gray-600">Angemeldet bleiben</span>
                 </label>
 
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                        Passwort vergessen?
                     </a>
                 @endif
             </div>
 
-            <div class="flex items-center mt-8 justify-between">
-                <a class="inline-block right-0 font-bold text-sm text-500 hover:text-indigo-200" href="#" onClick="autoFill('Testzugang'); return false;" >Testzugang verwenden</a>
-
-                <x-jet-button id="login_submit" class="ml-4 flex">
-                    {{ __('Log in') }}
+            <div class="flex items-center mt-4 justify-between">
+                <a href="/register" class="inline-block right-0 px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 focus:outline-none focus:border-gray-700 focus:shadow-outline-gray active:bg-gray-600 disabled:opacity-25 transition inline-block">Registieren</a>
+                <x-jet-button id="login_submit" class="ml-4 flex bg-green-600 hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-600">
+                    Anmelden
                 </x-jet-button>
+            </div>
+            <div class="flex items-center mt-4">
+                <a class="inline-block items-center right-0 font-bold text-sm text-500 hover:text-indigo-200" href="#" onClick="autoFill('Testzugang'); return false;" >Testzugang verwenden</a>
             </div>
         </form>
     </x-jet-authentication-card>
