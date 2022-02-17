@@ -24,7 +24,7 @@
     <div class="min-h-screen bg-gray-100">
         <div class="max-w-4xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="mt-5 md:mt-0 md:col-span-2 py-4">
-                <img src="https://web-service1.ix.dus.m-eshop.de/heyalter/heyalter_schwarz.png" width="20%">
+                <img src="{{ asset('heyalter_schwarz.png') }}" width="20%">
             </div>
             <div class="mt-5 md:mt-0 md:col-span-2">
                 @csrf

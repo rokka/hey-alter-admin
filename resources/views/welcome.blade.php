@@ -37,7 +37,7 @@
             @endif
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <img src="https://web-service1.ix.dus.m-eshop.de/heyalter/heyalter_schwarz.png" width="50%">
+                <img src="{{ asset('heyalter_schwarz.png') }}" width="50%">
             </div>
         </div>
     </body>
