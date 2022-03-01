@@ -36,11 +36,11 @@
                             <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                                 <label for="type" class="block font-medium text-sm text-gray-700">Geräteklasse</label>
                                 <select name="type" id="type" class="form-singleselect block rounded-md shadow-sm mt-1 block w-full">
-                                    <option value="0" {{ (old('type', '') == '0') ? ' selected' : '' }}>Unbekannt</option>
-                                    <option value="1" {{ (old('type', '') == '1') ? ' selected' : '' }}>Desktop</option>
-                                    <option value="2" {{ (old('type', '') == '2') ? ' selected' : '' }}>Laptop</option>
-                                    <option value="3" {{ (old('type', '') == '3') ? ' selected' : '' }}>Tablet</option>
-                                    <option value="4" {{ (old('type', '') == '4') ? ' selected' : '' }}>Small Form Factor</option>
+                                    <option value="0" {{ (old('type', $type) == '0') ? ' selected' : '' }}>Unbekannt</option>
+                                    <option value="1" {{ (old('type', $type) == '1') ? ' selected' : '' }}>Desktop</option>
+                                    <option value="2" {{ (old('type', $type) == '2') ? ' selected' : '' }}>Laptop</option>
+                                    <option value="3" {{ (old('type', $type) == '3') ? ' selected' : '' }}>Tablet</option>
+                                    <option value="4" {{ (old('type', $type) == '4') ? ' selected' : '' }}>Small Form Factor</option>
                                 </select>
                                 @error('type')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
@@ -49,7 +49,7 @@
 
                             <div class="px-4 py-3 bg-white sm:px-6 sm:py-3">
                                 <label for="model" class="block font-medium text-sm text-gray-700">Modell</label>
-                                <input type="text" name="model" id="model" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('model', '') }}" />
+                                <input type="text" name="model" id="model" class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('model', $model) }}" />
                                 @error('model')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
