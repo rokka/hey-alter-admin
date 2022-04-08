@@ -20,9 +20,9 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="block mb-8">
-                <a href="{{ route('computers.create') }}" class="inline-flex items-center justify-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-600 disabled:opacity-25 transition inline-block">Computer hinzufügen</a>
-                    <div class="input-group mx-auto float-right inline-block">
+            <div class="flex flex-wrap justify-between mb-8">
+                <a href="{{ route('computers.create') }}" class="inline-flex items-center justify-center px-4 py-2 mx-2 lg:mx-0 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-600 disabled:opacity-25 transition inline-block">Computer hinzufügen</a>
+                    <div class="input-group mx-2 lg:mx-0 mt-2 lg:mt-0 inline-block">
                         <input type="text" class="form-control mr-2 pr-24 py-2 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring" placeholder="Computer durchsuchen.." id="searchTerm">
                         <span class="input-group-btn mt-1 inline-block">
                             <span class="input-group-btn mr-5 mt-1 ">
