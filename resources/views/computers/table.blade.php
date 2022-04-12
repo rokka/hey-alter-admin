@@ -116,3 +116,11 @@
     @endforeach
     </tbody>
 </table>
+
+<script type="text/javascript">
+    $(function() {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("url");
+        });
+    });
+</script>
