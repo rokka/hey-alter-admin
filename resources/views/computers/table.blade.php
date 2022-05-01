@@ -24,11 +24,11 @@
         </th>
     </tr>
     </thead>
-    <tbody class="bg-white divide-y divide-gray-200">
+    <tbody class="divide-y divide-gray-200">
     @foreach ($computers as $computer)
-        <tr class="clickable-row hover:bg-gray-100 cursor-pointer" data-url="{{ route('computers.show', $computer->id) }}">
-            <td class="px-4 py-4 whitespace-nowrap">
-                <div class="flex items-center">
+        <tr class="bg-white clickable-row hover:bg-gray-100 cursor-pointer" data-url="{{ route('computers.show', $computer->id) }}">
+            <td data-label="Gerät" class="ml-2 lg:ml-0 px-4 py-4 whitespace-nowrap">
+                <div class="lg:flex lg:items-center">
                     @if ($computer->type == 1)
                         <i class="fas fa-desktop" title="Desktop"></i>
                     @elseif ($computer->type == 2)
@@ -48,7 +48,7 @@
                     </div>
                     <!--</div>-->
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td data-label="Benötigtes Zubehör" class="px-6 py-4 whitespace-nowrap">
                 <div class="text-sm font-medium text-gray-900">
                     @if ($computer->has_webcam == 0)
                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
@@ -67,12 +67,12 @@
                 </div>
             </td>
             @if (Auth::user()->currentTeam->use_donor_information)
-                <td class="px-6 py-4 whitespace-nowrap">
+                <td data-label="Spender" class="px-6 py-4 whitespace-nowrap">
                     <div class="text-sm text-gray-900">{{ $computer->donor ?? 'Unbekannt' }}</div>
                     <div class="text-sm text-gray-500">{{ $computer->email ?? '' }}</div>
                 </td>
             @endif
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td data-label="Status" class="px-6 py-4 whitespace-nowrap">
                 @if ($computer->state == 'new')
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
                                                     {{ __('xcomputer.state_' . $computer->state) }}
@@ -99,20 +99,44 @@
                                                 </span>
                 @endif
             </td>
-            <td class="px-6 py-4">
+            <td data-label="Kommentar" class="px-6 py-4">
                 <div class="text-sm text-gray-900">{!! nl2br(e($computer->comment)) !!}</div>
             </td>
-            <td>
+
+            {{-- desktop-view --}}
+            <td data-label="Professionelle Lösung gewünscht" class="mobile-hidden">
                 @if ($computer->is_deletion_required)
-                    <i class="fa fa-eraser" title="Professionelle Löschung gewünscht"></i>
+                <i class="fa fa-eraser" title="Professionelle Löschung gewünscht"></i>
                 @endif
             </td>
-            <td>
+
+            <td data-label="Spendenquittung gewünscht" class="mobile-hidden">
                 @if ($computer->needs_donation_receipt)
-                    <i class="fa fa-file px-2" title="Spendenquittung gewünscht"></i>
+                <i class="fa fa-file px-2" title="Spendenquittung gewünscht"></i>
                 @endif
             </td>
+
+            {{-- mobile-view --}}
+            @if ($computer->is_deletion_required)
+            <td data-label="Professionelle Lösung gewünscht" class="px-6 py-4 desktop-hidden">
+                <i class="fa fa-eraser" title="Professionelle Löschung gewünscht"></i>
+            </td>
+            @endif
+
+            @if ($computer->needs_donation_receipt)
+                    <td data-label="Spendenquittung gewünscht" class="px-6 py-4 desktop-hidden">
+                <i class="fa fa-file px-2" title="Spendenquittung gewünscht"></i>
+                    </td>
+            @endif
         </tr>
     @endforeach
     </tbody>
 </table>
+
+<script type="text/javascript">
+    $(function() {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("url");
+        });
+    });
+</script>
