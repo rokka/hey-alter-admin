@@ -23,6 +23,22 @@ class ComputerController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Computer $computer
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, Computer $computer)
+    {
+        if($computer->team->id != Auth::user()->currentTeam->id)
+        {
+            abort(403, 'Forbidden');
+        }
+
+        return view('computers.show', compact('computer'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -41,8 +57,6 @@ class ComputerController extends Controller
         {
            $type = 0;
         }
-
-
 
         return view('computers.create')
                 ->with('model', $request->input("model"))
@@ -72,17 +86,6 @@ class ComputerController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Computer $computer
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, Computer $computer)
-    {
-        return view('computers.show', compact('computer'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Computer $computer
@@ -90,39 +93,10 @@ class ComputerController extends Controller
      */
     public function edit(Computer $computer)
     {
-        return view('computers.edit', compact('computer'));
-    }
-
-    public function edit2(Request $request, $location, $number)
-    {
-        $user = Auth::user();
-
-        $team = Team::where('abbreviation', 'HA-' . $location)->first();
-
-        if(is_null($team))
+        if($computer->team->id != Auth::user()->currentTeam->id)
         {
-            abort(404, 'Unkown team');
+            abort(403, 'Forbidden');
         }
-
-        if($team->id != $user->currentTeam->id)
-        {
-            abort(403, 'Unauthorized');
-        }
-
-        $computer = Computer::where('team_id', $team->id)->where('number', $number)->first();
-
-        if(is_null($computer))
-        {
-            abort(404, 'Unkown computer');
-        }
-
-        if($request->has("model") && strlen($request->input("model") > 0)) $computer->model = $request->input("model");
-        if($request->has("cpu")) $computer->cpu = $request->input("cpu");
-        if($request->has("memory_in_gb"))  $computer->memory_in_gb = $request->input("memory_in_gb");
-        if($request->has("hard_drive_type")) $computer->hard_drive_type = $request->input("hard_drive_type");
-        if($request->has("hard_drive_space_in_gb")) $computer->hard_drive_space_in_gb = $request->input("hard_drive_space_in_gb");
-        if($request->has("type_name") && $request->input("type_name") == 'desktop') $computer->type = 1;
-        if($request->has("type_name") && $request->input("type_name") == 'laptop') $computer->type = 2;
 
         return view('computers.edit', compact('computer'));
     }
@@ -136,6 +110,11 @@ class ComputerController extends Controller
      */
     public function update(UpdateComputerRequest $request, Computer $computer)
     {
+        if($computer->team->id != Auth::user()->currentTeam->id)
+        {
+            abort(403, 'Forbidden');
+        }
+
         $computer->is_deletion_required = $request->has('is_deletion_required');
         $computer->needs_donation_receipt = $request->has('needs_donation_receipt');
         $computer->has_webcam = $request->has('has_webcam');
@@ -160,7 +139,6 @@ class ComputerController extends Controller
         {
             $computer = Computer::where('team_id', $team->id)->where('number', $number)->first();
 
-
             if (Auth::check())
             {
                 return redirect()->action(
@@ -177,18 +155,15 @@ class ComputerController extends Controller
 
     public function search(Request $request)
     {
-
         $user = Auth::user();
 
         $query = $request->searchTerm;
 
-
-        if ($request->ajax()) {
-
-            if ($query != '') {
-
+        if ($request->ajax())
+        {
+            if ($query != '')
+            {
                 $computers = Computer::with('team')->where(function ($q) use ($query) {
-
 
                     $columns = ['donor', 'model', 'email', 'cpu', 'required_equipment', 'comment'];
 
@@ -196,24 +171,22 @@ class ComputerController extends Controller
                         $q->orWhere($column, 'LIKE', '%' . $query . '%');
 
                     }
-
-
                 })
                     ->where('team_id', $user->currentTeam->id)
                     ->where('type', 'like', ($request->has('type') ? $request->input('type') : '%'))
                     ->where('state', 'like', ($request->has('state') ? $request->input('state') : '%'))
                     ->orderBy('id', 'desc')
                     ->get();
-
-
-            } else {
-
+            }
+            else
+            {
                 $computers = Computer::with('team')
                     ->where('team_id', $user->currentTeam->id)
                     ->where('type', 'like', ($request->has('type') ? $request->input('type') : '%'))
                     ->where('state', 'like', ($request->has('state') ? $request->input('state') : '%'))
                     ->orderBy('id','desc')->get();
             }
+
             return view('computers.table', compact('computers'));
         }
     }

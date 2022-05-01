@@ -16,31 +16,29 @@ class TeamSeeder extends Seeder
     {
         DB::table('teams')->insert([
             'user_id' => 1,
-            'name' => 'HA-T',
+            'name' => 'HA-Taubertal',
+            'abbreviation' => 'HA-T',
             'personal_team' => false,
         ]);
 
         DB::table('teams')->insert([
             'user_id' => 1,
-            'name' => 'HA-BS',
+            'name' => 'HA-Braunschweig',
+            'abbreviation' => 'HA-BS',
             'personal_team' => false,
         ]);
 
         DB::table('teams')->insert([
             'user_id' => 1,
-            'name' => 'HA-EVR',
+            'name' => 'HA-Aachen',
+            'abbreviation' => 'HA-A',
             'personal_team' => false,
         ]);
 
         DB::table('teams')->insert([
             'user_id' => 1,
-            'name' => 'HA-A',
-            'personal_team' => false,
-        ]);
-
-        DB::table('teams')->insert([
-            'user_id' => 1,
-            'name' => 'HA-S',
+            'name' => 'HA-Suttgart',
+            'abbreviation' => 'HA-S',
             'personal_team' => false,
         ]);
     }
