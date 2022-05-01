@@ -21,6 +21,22 @@ class SchoolController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\School $school
+     * @return \Illuminate\Http\Response
+     */
+    public function show(School $school)
+    {
+        if($school->team->id != Auth::user()->currentTeam->id)
+        {
+            abort(403, 'Forbidden');
+        }
+
+        return view('schools.show', compact('school'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -44,17 +60,6 @@ class SchoolController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\School $school
-     * @return \Illuminate\Http\Response
-     */
-    public function show(School $school)
-    {
-        return view('schools.show', compact('school'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\School $school
@@ -62,6 +67,11 @@ class SchoolController extends Controller
      */
     public function edit(School $school)
     {
+        if($school->team->id != Auth::user()->currentTeam->id)
+        {
+            abort(403, 'Forbidden');
+        }
+
         return view('schools.edit', compact('school'));
     }
 
@@ -74,6 +84,11 @@ class SchoolController extends Controller
      */
     public function update(UpdateSchoolRequest $request, School $school)
     {
+        if($school->team->id != Auth::user()->currentTeam->id)
+        {
+            abort(403, 'Forbidden');
+        }
+
         $school->update($request->all());
 
         return view('schools.show', compact('school'));
@@ -81,38 +96,31 @@ class SchoolController extends Controller
 
     public function search(Request $request)
     {
-
         $user = Auth::user();
-
         $query = $request->searchTerm;
 
-
-        if ($request->ajax()) {
-
-            if ($query != '') {
-
-                $schools = School::with('team')->where(function ($q) use ($query) {
-
-
+        if ($request->ajax())
+        {
+            if ($query != '')
+            {
+                $schools = School::with('team')->where(function ($q) use ($query)
+                {
                     $columns = ['name', 'type', 'zip', 'city', 'street', 'phone', 'contact_person'];
 
-                    foreach ($columns as $column) {
+                    foreach ($columns as $column)
+                    {
                         $q->orWhere($column, 'LIKE', '%' . $query . '%');
-
                     }
-
-
                 })
-                    ->where('team_id', $user->currentTeam->id)
-                    ->orderBy('name','asc')
-                    ->get();
-
-
-            } else {
-
-                $schools = School::with('team')->where('team_id', $user->currentTeam->id)->orderBy('name','asc')->get();
-
+                ->where('team_id', $user->currentTeam->id)
+                ->orderBy('name','asc')
+                ->get();
             }
+            else
+            {
+                $schools = School::with('team')->where('team_id', $user->currentTeam->id)->orderBy('name','asc')->get();
+            }
+
             return view('schools.table', compact('schools'));
         }
     }
