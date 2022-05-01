@@ -33,7 +33,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/computers/HA-{location}-{number}/edit', [ComputerController::class, 'edit2'])->where('location', '[A-Za-z]+')->where('number', '[0-9]+');
     Route::get('/computers/table', 'App\Http\Controllers\ComputerController@search')->name('computers.table');
     Route::resource('/computers', ComputerController::class);
     Route::get('/schools/table', 'App\Http\Controllers\SchoolController@search')->name('schools.table');
