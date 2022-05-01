@@ -22,7 +22,7 @@ class OrderController extends Controller
     {
         $user = Auth::user();
 
-        $orders = Order::with('team')->where('team_id', $user->currentTeam->id)->get();
+        $orders = Order::with('team')->where('team_id', $user->currentTeam->id)->orderBy('id', 'desc')->get();
 
         return view('orders.index', compact('orders'));
     }
