@@ -23,6 +23,22 @@ class ComputerController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Computer $computer
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, Computer $computer)
+    {
+        if($computer->team->id != Auth::user()->currentTeam->id)
+        {
+            abort(403, 'Forbidden');
+        }
+
+        return view('computers.show', compact('computer'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -41,8 +57,6 @@ class ComputerController extends Controller
         {
            $type = 0;
         }
-
-
 
         return view('computers.create')
                 ->with('model', $request->input("model"))
@@ -72,17 +86,6 @@ class ComputerController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Computer $computer
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, Computer $computer)
-    {
-        return view('computers.show', compact('computer'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Computer $computer
@@ -90,7 +93,40 @@ class ComputerController extends Controller
      */
     public function edit(Computer $computer)
     {
+        if($computer->team->id != Auth::user()->currentTeam->id)
+        {
+            abort(403, 'Forbidden');
+        }
+
         return view('computers.edit', compact('computer'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Computer $computer
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateComputerRequest $request, Computer $computer)
+    {
+        if($computer->team->id != Auth::user()->currentTeam->id)
+        {
+            abort(403, 'Forbidden');
+        }
+
+        $computer->is_deletion_required = $request->has('is_deletion_required');
+        $computer->needs_donation_receipt = $request->has('needs_donation_receipt');
+        $computer->has_webcam = $request->has('has_webcam');
+        $computer->has_wlan = $request->has('has_wlan');
+        $computer->has_vga_videoport = $request->has('has_vga_videoport');
+        $computer->has_dvi_videoport = $request->has('has_dvi_videoport');
+        $computer->has_hdmi_videoport = $request->has('has_hdmi_videoport');
+        $computer->has_displayport_videoport = $request->has('has_displayport_videoport');
+
+        $computer->update($request->all());
+
+        return view('computers.show', compact('computer'));
     }
 
     public function edit2(Request $request, $location, $number)
@@ -106,7 +142,7 @@ class ComputerController extends Controller
 
         if($team->id != $user->currentTeam->id)
         {
-            abort(403, 'Unauthorized');
+            abort(403, 'Forbidden');
         }
 
         $computer = Computer::where('team_id', $team->id)->where('number', $number)->first();
@@ -127,29 +163,6 @@ class ComputerController extends Controller
         return view('computers.edit', compact('computer'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\Computer $computer
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateComputerRequest $request, Computer $computer)
-    {
-        $computer->is_deletion_required = $request->has('is_deletion_required');
-        $computer->needs_donation_receipt = $request->has('needs_donation_receipt');
-        $computer->has_webcam = $request->has('has_webcam');
-        $computer->has_wlan = $request->has('has_wlan');
-        $computer->has_vga_videoport = $request->has('has_vga_videoport');
-        $computer->has_dvi_videoport = $request->has('has_dvi_videoport');
-        $computer->has_hdmi_videoport = $request->has('has_hdmi_videoport');
-        $computer->has_displayport_videoport = $request->has('has_displayport_videoport');
-
-        $computer->update($request->all());
-
-        return view('computers.show', compact('computer'));
-    }
-
     public function display($location, $number)
     {
         $computer = null;
@@ -159,7 +172,6 @@ class ComputerController extends Controller
         if(!is_null($team))
         {
             $computer = Computer::where('team_id', $team->id)->where('number', $number)->first();
-
 
             if (Auth::check())
             {
@@ -177,18 +189,15 @@ class ComputerController extends Controller
 
     public function search(Request $request)
     {
-
         $user = Auth::user();
 
         $query = $request->searchTerm;
 
-
-        if ($request->ajax()) {
-
-            if ($query != '') {
-
+        if ($request->ajax())
+        {
+            if ($query != '')
+            {
                 $computers = Computer::with('team')->where(function ($q) use ($query) {
-
 
                     $columns = ['donor', 'model', 'email', 'cpu', 'required_equipment', 'comment'];
 
@@ -196,24 +205,22 @@ class ComputerController extends Controller
                         $q->orWhere($column, 'LIKE', '%' . $query . '%');
 
                     }
-
-
                 })
                     ->where('team_id', $user->currentTeam->id)
                     ->where('type', 'like', ($request->has('type') ? $request->input('type') : '%'))
                     ->where('state', 'like', ($request->has('state') ? $request->input('state') : '%'))
                     ->orderBy('id', 'desc')
                     ->get();
-
-
-            } else {
-
+            }
+            else
+            {
                 $computers = Computer::with('team')
                     ->where('team_id', $user->currentTeam->id)
                     ->where('type', 'like', ($request->has('type') ? $request->input('type') : '%'))
                     ->where('state', 'like', ($request->has('state') ? $request->input('state') : '%'))
                     ->orderBy('id','desc')->get();
             }
+
             return view('computers.table', compact('computers'));
         }
     }
