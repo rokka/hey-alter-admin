@@ -158,10 +158,26 @@ class ComputerController extends Controller
         $user = Auth::user();
 
         $query = $request->searchTerm;
+        $filter = $request->get('status');
+
 
         if ($request->ajax())
         {
-            if ($query != '')
+
+            if($request->get('status'))
+            {
+                $computers = Computer::with('team')->where(function ($q) use ($filter) {
+
+                        $q->where('state', 'LIKE', '%' . $filter . '%');
+
+                })
+                    ->where('team_id', $user->currentTeam->id)
+                    ->where('type', 'like', ($request->has('type') ? $request->input('type') : '%'))
+                    ->where('state', 'like', ($request->has('state') ? $request->input('state') : '%'))
+                    ->orderBy('id', 'desc')
+                    ->get();
+            }
+            elseif ($query != '')
             {
                 $computers = Computer::with('team')->where(function ($q) use ($query) {
 
