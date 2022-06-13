@@ -56,7 +56,7 @@ class SchoolController extends Controller
     {
         $school = School::create($request->validated());
 
-        return redirect()->route('schools.index')->with('message', $school->identifier . ' stored successfully');
+        return redirect()->route('schools.index')->with('message', $school->name . ' wurde gespeichert.');
     }
 
     /**

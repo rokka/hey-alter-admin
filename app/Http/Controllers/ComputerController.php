@@ -82,7 +82,7 @@ class ComputerController extends Controller
     {
         $computer = Computer::create($request->validated());
 
-        return redirect()->route('computers.index')->with('message', $computer->identifier . ' stored successfully');
+        return redirect()->route('computers.index')->with('message', $computer->identifier . ' wurde gespeichert.');
     }
 
     /**
@@ -158,10 +158,25 @@ class ComputerController extends Controller
         $user = Auth::user();
 
         $query = $request->searchTerm;
+        $filter = $request->get('state');
 
         if ($request->ajax())
         {
-            if ($query != '')
+
+            if($request->get('state'))
+            {
+                $computers = Computer::with('team')->where(function ($q) use ($filter) {
+
+                        $q->where('state', 'LIKE', '%' . $filter . '%');
+
+                })
+                    ->where('team_id', $user->currentTeam->id)
+                    ->where('type', 'like', ($request->has('type') ? $request->input('type') : '%'))
+                    ->where('state', 'like', ($request->has('state') ? $request->input('state') : '%'))
+                    ->orderBy('id', 'desc')
+                    ->get();
+            }
+            elseif ($query != '')
             {
                 $computers = Computer::with('team')->where(function ($q) use ($query) {
 
