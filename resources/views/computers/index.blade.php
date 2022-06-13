@@ -21,6 +21,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex flex-wrap justify-between mb-8">
                 <a href="{{ route('computers.create') }}" class="inline-flex items-center justify-center px-4 py-2 mx-2 lg:mx-0 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-600 disabled:opacity-25 transition inline-block">Computer hinzufügen</a>
+                {{-- <a href="{{ route('consignments.create') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-semibold text-xs text-white uppercase tracking-widest py-2 px-4 rounded inline-block float-right">Einlieferungsprotokoll</a> --}}
                 <div class="mx-2 lg:mx-0 mt-2 lg:mt-0 inline-block">
                     <input type="text" class="mr-2 pr-24 py-2 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow outline-none hover:ring" placeholder="Computer durchsuchen.." id="searchTerm">
                 </div>
