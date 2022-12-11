@@ -19,17 +19,30 @@ class ComputerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     //
-    // }
+    /**
+     * @OA\Get(
+     * path="/api/computers",
+     * summary="Get all computers",
+     * operationId="indexComputer",
+     * tags={"Computers"},
+     * security={{"bearerAuth":{}}},
+     * @OA\Response(response=200, description="OK", @OA\JsonContent(ref="#/components/schemas/ComputerResource")),
+     * @OA\Response(response=401, description="Unauthorized"),
+     * @OA\Response(response=403, description="Forbidden"),
+     * @OA\Response(response=500, description="Internal Server Error"),
+     * )
+     */
+    public function index()
+    {
+         //
+    }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-    **/    
+    **/
     /**
      * @OA\Get(
      * path="/api/computers/{id}",
@@ -47,12 +60,21 @@ class ComputerController extends Controller
      */
     public function show($id)
     {
-        if(!auth()->user()->tokenCan("computers.read"))
+	$user = auth()->user();
+
+        if(!$user->tokenCan("computers.read"))
         {
-            abort(403, 'Unauthorized');
+            abort(403, 'Forbidden');
         }
 
-        return new ComputerResource(Computer::findOrFail($id));
+	$computer = Computer::findOrFail($id);
+
+        if($computer->team->id != $user->currentTeam->id)
+        {
+            abort(403, 'Forbidden');
+        }
+
+        return new ComputerResource($computer);
     }
 
     /**
@@ -70,7 +92,7 @@ class ComputerController extends Controller
      * security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
-     *         description="Pet object that needs to be added to the store",
+     *         description="Computer object that needs to be added to the database",
      *         @OA\JsonContent(ref="#/components/schemas/ComputerResource"),
      *     ),
      * @OA\Response(response=201, description="Created", @OA\JsonContent(ref="#/components/schemas/ComputerResource")),
@@ -84,7 +106,7 @@ class ComputerController extends Controller
     {
         if(!auth()->user()->tokenCan("computers.create"))
         {
-            abort(403, 'Unauthorized');
+            abort(403, 'Forbidden');
         }
 
         $computer = Computer::create($request->validated());
@@ -121,7 +143,7 @@ class ComputerController extends Controller
     {
         if(!auth()->user()->tokenCan("computers.update"))
         {
-            abort(403, 'Unauthorized');
+            abort(403, 'Forbidden');
         }
 
         $computer->update($request->all());
@@ -154,9 +176,18 @@ class ComputerController extends Controller
      */
     public function destroy($id)
     {
-        if(!auth()->user()->tokenCan("computers.delete"))
+        $user = auth()->user();
+
+        if(!$user->tokenCan("computers.delete"))
         {
-            abort(403, 'Unauthorized');
+            abort(403, 'Forbidden');
+        }
+
+        $computer = Computer::findOrFail($id);
+
+        if($computer->team->id != $user->currentTeam->id)
+        {
+            abort(403, 'Forbidden');
         }
     }
 }
