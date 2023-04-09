@@ -46,11 +46,11 @@ class ComputerController extends Controller
     /**
      * @OA\Get(
      * path="/api/computers/{id}",
-     * summary="Get computer by id",
+     * summary="Get computer by id or number",
      * operationId="showComputer",
      * tags={"Computers"},
      * security={{"bearerAuth":{}}},
-     * @OA\Parameter(name="id", in="path", description="Id of the computer", required=true, @OA\Schema(type="integer", format="int64"), style="form"),
+     * @OA\Parameter(name="id", in="path", description="Id or number of the computer", required=true, @OA\Schema(type="integer", format="int64"), style="form"),
      * @OA\Response(response=200, description="OK", @OA\JsonContent(ref="#/components/schemas/ComputerResource")),
      * @OA\Response(response=401, description="Unauthorized"),
      * @OA\Response(response=403, description="Forbidden"),
@@ -67,7 +67,21 @@ class ComputerController extends Controller
             abort(403, 'Forbidden');
         }
 
-	$computer = Computer::findOrFail($id);
+	if(preg_match("/.*-([0-9]*)$/", $id, $matches))
+	{
+		$number = $matches[1];
+		
+		$computer = Computer::where('number', $number)->first();
+	}
+	else
+	{
+		$computer = Computer::findOrFail($id);
+	}
+
+	if($computer == null)
+	{
+		abort(404, 'Not Found');
+	}
 
         if($computer->team->id != $user->currentTeam->id)
         {
@@ -85,7 +99,7 @@ class ComputerController extends Controller
      */
     /**
      * @OA\Post(
-     * path="/api/computers/",
+     * path="/api/computers",
      * summary="Create a new computer",
      * operationId="storeComputer",
      * tags={"Computers"},
@@ -123,7 +137,7 @@ class ComputerController extends Controller
      */
      /**
      * @OA\Patch(
-     * path="/api/computers/",
+     * path="/api/computers",
      * summary="Update an existing computer",
      * operationId="updateComputer",
      * tags={"Computers"},
@@ -155,11 +169,11 @@ class ComputerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-        /**
+    /**
      * @OA\Delete(
-     * path="/api/computers/",
+     * path="/api/computers",
      * summary="Delete a computer",
-     * operationId="deleteComputer",
+     * operationId="destroyComputer",
      * tags={"Computers"},
      * security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
@@ -188,6 +202,5 @@ class ComputerController extends Controller
         if($computer->team->id != $user->currentTeam->id)
         {
             abort(403, 'Forbidden');
-        }
+	}
     }
-}
