@@ -53,17 +53,18 @@ class Computer extends Model
     protected static function booted()
     {
         static::saving(function ($computer) {
+	
+	    $user = Auth::user();
 
-            if(!$computer->exists)
-            {
-                $user = Auth::user();
-
+            if(!isset($computer->number))
+	    {
                 $last_number = DB::table('computers')->where('team_id', $user->currentTeam->id)->max('number');
                 $last_number = intval($last_number);
 
-                $computer->team_id = $user->currentTeam->id;
                 $computer->number = $last_number + 1;
-            }
+	    }
+
+	    $computer->team_id = $user->currentTeam->id;
 
             if(is_null($computer->model))
             {

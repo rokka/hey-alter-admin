@@ -8,7 +8,8 @@ class StoreComputerRequest extends FormRequest
 {
     public function rules()
     {
-        return [
+	 return [
+	    'number' => [ 'nullable', 'int' ],
             'donor' => ['nullable', 'string' ],
             'email' => ['nullable', 'email' ],
             'type' => ['required', 'string' ],

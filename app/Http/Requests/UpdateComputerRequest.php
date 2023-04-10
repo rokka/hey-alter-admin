@@ -13,7 +13,7 @@ class UpdateComputerRequest extends FormRequest
             'email' => ['nullable', 'email' ],
             'type' => ['nullable', 'string' ],
             'model' => ['nullable', 'string' ],
-            'state' => ['required', 'string' ],
+            'state' => ['nullable', 'string' ],
             'comment' => [ 'nullable' ],
             'is_deletion_required' => [ 'boolean' ],
             'needs_donation_receipt' => [ 'boolean' ],

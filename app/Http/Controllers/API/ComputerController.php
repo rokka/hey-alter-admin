@@ -11,6 +11,7 @@ use App\Http\Requests\StoreComputerRequest;
 use App\Http\Requests\UpdateComputerRequest;
 use App\Http\Resources\ComputerResource;
 use App\Models\Computer;
+use App\Models\Team;
 
 class ComputerController extends Controller
 {
@@ -34,7 +35,16 @@ class ComputerController extends Controller
      */
     public function index()
     {
-         //
+        $user = auth()->user();
+
+        if(!$user->tokenCan("computers.read"))
+        {
+            abort(403, 'Forbidden');
+	}
+
+	$computers = Computer::where('team_id', $user->current_team_id)->get();
+
+	return response()->json(['computers' => $computers]);
     }
 
     /**
@@ -67,11 +77,13 @@ class ComputerController extends Controller
             abort(403, 'Forbidden');
         }
 
-	if(preg_match("/.*-([0-9]*)$/", $id, $matches))
+	if(preg_match("/(.*)-([0-9]*)$/", $id, $matches))
 	{
-		$number = $matches[1];
-		
-		$computer = Computer::where('number', $number)->first();
+		$abb = $matches[1];
+		$number = $matches[2];
+
+		$team = Team::where('abbreviation', $abb)->firstOrFail();
+		$computer = Computer::where('number', $number)->where('team_id', $team->id)->firstOrFail();
 	}
 	else
 	{
@@ -83,12 +95,14 @@ class ComputerController extends Controller
 		abort(404, 'Not Found');
 	}
 
-        if($computer->team->id != $user->currentTeam->id)
+        if($computer->team->id != $user->current_team_id)
         {
             abort(403, 'Forbidden');
-        }
+	}
 
-        return new ComputerResource($computer);
+	unset($computer->team);
+
+	return response()->json(['computer' => $computer]);
     }
 
     /**
@@ -118,10 +132,20 @@ class ComputerController extends Controller
      */
     public function store(StoreComputerRequest $request)
     {
-        if(!auth()->user()->tokenCan("computers.create"))
+	$user = auth()->user();
+
+        if(!$user->tokenCan("computers.create"))
         {
             abort(403, 'Forbidden');
-        }
+	}
+
+	if(isset($request->number))
+	{
+		if(Computer::where('team_id', $user->current_team_id)->where('number', $request->number)->exists())
+		{
+			abort(409, 'Computer number already exists');
+		}
+	}
 
         $computer = Computer::create($request->validated());
 
@@ -153,14 +177,46 @@ class ComputerController extends Controller
      * @OA\Response(response=404, description="Not found"),
      * )
      */
-    public function update(UpdateComputerRequest $request, Computer $computer)
+    public function update($id, UpdateComputerRequest $request)
     {
-        if(!auth()->user()->tokenCan("computers.update"))
+	$user = auth()->user();
+
+        if(!$user->tokenCan("computers.update"))
+        {
+            abort(403, 'Forbidden');
+	}
+
+	if(preg_match("/(.*)-([0-9]*)$/", $id, $matches))
+        {
+                $abb = $matches[1];
+                $number = $matches[2];
+
+                $team = Team::where('abbreviation', $abb)->firstOrFail();
+                $computer = Computer::where('number', $number)->where('team_id', $team->id)->firstOrFail();
+        }
+        else
+        {
+                $computer = Computer::findOrFail($id);
+        }
+
+        if($computer->team->id != $user->currentTeam->id)
         {
             abort(403, 'Forbidden');
         }
 
-        $computer->update($request->all());
+        if(isset($request->number))
+        {
+                if(Computer::where('team_id', $user->current_team_id)->where('number', $request->number)->exists())
+                {
+                        abort(409, 'Computer number already exists');
+                }
+        }
+
+	$computer->update($request->all());
+
+	unset($computer->team);
+	
+	return response()->json($computer, 200);
     }
 
     /**
@@ -197,10 +253,26 @@ class ComputerController extends Controller
             abort(403, 'Forbidden');
         }
 
-        $computer = Computer::findOrFail($id);
+	if(preg_match("/(.*)-([0-9]*)$/", $id, $matches))
+	{
+		$abb = $matches[1];
+                $number = $matches[2];
+
+                $team = Team::where('abbreviation', $abb)->firstOrFail();
+                $computer = Computer::where('number', $number)->where('team_id', $team->id)->firstOrFail();
+        }
+        else
+        {
+                $computer = Computer::findOrFail($id);
+        }
 
         if($computer->team->id != $user->currentTeam->id)
         {
             abort(403, 'Forbidden');
 	}
+
+	$computer->delete();
+
+	return response()->noContent();
     }
+}
