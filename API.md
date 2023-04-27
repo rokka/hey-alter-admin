@@ -164,4 +164,4 @@ curl --location --request DELETE 'https://heyneuer.com/api/computers/HA-E-0001' 
 1 (Desktop), 2 (Laptop), 3 (Tablett), 4 (Small Form Factor)
 
 ### state
-new, in_progress, refurbished, picked, delivered, destroyed
+new, in_progress, refurbished, picked, delivered, destroyed, loss
