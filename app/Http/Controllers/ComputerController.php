@@ -165,7 +165,7 @@ class ComputerController extends Controller
             {
                 $computers = Computer::with('team')->where(function ($q) use ($query) {
 
-                    $columns = ['donor', 'model', 'email', 'cpu', 'required_equipment', 'comment'];
+                    $columns = ['number', 'donor', 'model', 'email', 'cpu', 'required_equipment', 'comment'];
 
                     foreach ($columns as $column) {
                         $q->orWhere($column, 'LIKE', '%' . $query . '%');
