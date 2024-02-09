@@ -3,14 +3,13 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Schulen
-
+            <p>Schulen</p>
+        </h2>
             @if (session('message'))
-                <div class="alert alert-success">
-                    {{ session('message') }}
+                <div class="bg-green-50 border-l-4 border-green-600 rounded-b px-4 py-3 shadow-md mt-4">
+                    <p>{{ session('message') }}</p>
                 </div>
             @endif
-        </h2>
     </x-slot>
 
     <div class="py-12">
