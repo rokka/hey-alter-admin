@@ -8,5 +8,6 @@ return [
     'state_in_progress' => '>In progress',
     'state_destroyed' => 'Destroyed',
     'state_picked' => 'Picked',
+    'state_loss' => 'Loss',
 
 ];
